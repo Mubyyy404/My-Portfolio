@@ -207,10 +207,70 @@
                 overflow: visible;
             }
         }
+
+        /* Modal for Resume Preview */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: #1F2937;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 4xl;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 70vh;
+            border: none;
+            border-radius: 0.5rem;
+            overflow: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        @media (max-width: 640px) {
+            .modal-content iframe {
+                height: 50vh;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-white relative">
     <div id="vanta-bg"></div>
+
+    <!-- Resume Preview Modal -->
+    <div id="resume-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <iframe src="Mohamed Mubeen resume.pdf" title="Resume Preview"></iframe>
+            <div class="text-center mt-4">
+                <a href="Mohamed Mubeen resume.pdf" download class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95">Download Resume</a>
+            </div>
+        </div>
+    </div>
 
     <header class="bg-gray-900 bg-opacity-80 shadow-lg p-4 sm:p-6 sticky top-0 z-50 backdrop-blur-md">
         <div class="container mx-auto flex justify-between items-center">
@@ -231,8 +291,8 @@
             Passionate about ethical hacking, penetration testing, and protecting digital frontiers. Let's secure the world together.
         </p>
         <div class="mt-6 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <a href="#contact" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95">Connect with Me</a>
-            <a href="Mohamed Mubeen resume.pdf" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95">Get My Resume</a>
+            <a href="#contact" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Connect with Mohamed Mubeen">Connect with Me</a>
+            <button onclick="openModal()" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Preview and Download Resume">Get My Resume</button>
         </div>
     </section>
 
@@ -475,6 +535,23 @@
             showDots: false,
             backgroundAlpha: 1.00
         });
+
+        // Modal Functions
+        function openModal() {
+            document.getElementById('resume-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('resume-modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('resume-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
 
         // Slider Navigation Dots and Touch Swipe
         const slider = document.querySelector('#photo-slider .animate-slide');
