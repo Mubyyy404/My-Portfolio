@@ -144,7 +144,7 @@
         /* Neon Button */
         .neon-btn {
             position: relative;
-            background: linear-gradient(45deg, #7C3AED, #A78BFA);
+            background: linear-gradient(45deg, #06B6D4, #22D3EE); /* Cyan-based gradient */
             overflow: hidden;
             animation: pulse 2s infinite;
         }
@@ -170,9 +170,9 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 10px rgba(124, 58, 237, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.8); }
-            100% { box-shadow: 0 0 10px rgba(124, 58, 237, 0.5); }
+            0% { box-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
         }
 
         /* Hero Section Responsive Styles */
@@ -185,12 +185,34 @@
                 padding: 5rem 4rem;
             }
         }
+
+        /* Hero Text Truncation and Expansion */
+        .hero-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero-text.expanded {
+            -webkit-line-clamp: unset;
+            overflow: visible;
+        }
+
+        @media (min-width: 640px) {
+            .hero-text {
+                -webkit-line-clamp: unset;
+                overflow: visible;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-white relative">
     <div id="vanta-bg"></div>
 
-    <header class="bg-gray-900 bg-opacity-80 shadow-lg p-6 sticky top-0 z-50 backdrop-blur-md">
+    <header class="bg-gray-900 bg-opacity-80 shadow-lg p-4 sm:p-6 sticky top-0 z-50 backdrop-blur-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl sm:text-3xl font-bold text-cyan-400 transform transition hover:scale-110">Mohamed Mubeen</h1>
             <nav class="space-x-4 sm:space-x-6">
@@ -204,11 +226,13 @@
     </header>
 
     <section class="hero-section text-center relative z-10 section-animate">
-        <h2 class="text-4xl sm:text-5xl font-extrabold text-cyan-400 mb-4 animate-bounce">Hi, I'm a Cybersecurity Enthusiast</h2>
-        <p class="text-gray-300 max-w-lg mx-auto text-base sm:text-lg">Passionate about ethical hacking, penetration testing, and protecting digital frontiers. Let's secure the world together.</p>
-        <div class="mt-8 space-x-4">
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-cyan-400 mb-4">Hi, I'm a Cybersecurity Enthusiast</h2>
+        <p class="hero-text text-gray-300 max-w-lg mx-auto text-base sm:text-lg" onclick="this.classList.toggle('expanded')">
+            Passionate about ethical hacking, penetration testing, and protecting digital frontiers. Let's secure the world together.
+        </p>
+        <div class="mt-6 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <a href="#contact" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95">Connect with Me</a>
-            <a href="Mohamed Mubeen resume.pdf" class="bg-cyan-500 text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95">Get My Resume</a>
+            <a href="Mohamed Mubeen resume.pdf" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95">Get My Resume</a>
         </div>
     </section>
 
