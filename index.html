@@ -21,6 +21,60 @@
             left: 0;
             z-index: -1;
         }
+        
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            display: none; /* Hidden by default on mobile */
+            position: absolute;
+            top: 100%; /* Position below the header */
+            right: 0;
+            width: 100%;
+            background-color: rgba(17, 24, 39, 0.95); /* Gray-900 with opacity */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+            padding: 1rem 0;
+            z-index: 49; /* Below the main header z-50 */
+        }
+        #mobile-menu a {
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            display: block;
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+        }
+        #mobile-menu a:last-child {
+            border-bottom: none;
+        }
+        /* Mobile Menu Toggle button (Hamburger icon) */
+        .menu-toggle-btn {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 5px 0;
+        }
+        .menu-toggle-btn span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: #22D3EE;
+            border-radius: 5px;
+        }
+        @media (max-width: 767px) {
+            .menu-toggle-btn {
+                display: flex;
+            }
+            .desktop-nav {
+                display: none;
+            }
+            /* Show the mobile menu when the 'open' class is toggled on the button */
+            .menu-toggle-btn.active + #mobile-menu {
+                display: flex;
+            }
+        }
+        /* END Mobile Menu Styles */
+
 
         /* Enhanced Photo Slider */
         @keyframes slide {
@@ -474,7 +528,14 @@
     <header class="bg-gray-900 bg-opacity-80 shadow-lg p-4 sm:p-6 sticky top-0 z-50 backdrop-blur-md">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl sm:text-3xl font-bold text-cyan-400 transform transition hover:scale-110">Mohamed Mubeen</h1>
-            <nav class="space-x-4 sm:space-x-6">
+            
+            <button class="menu-toggle-btn md:hidden" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <nav class="desktop-nav space-x-4 sm:space-x-6">
                 <a href="#about" class="hover:text-cyan-400 transition duration-300">About</a>
                 <a href="#skills" class="hover:text-cyan-400 transition duration-300">Skills</a>
                 <a href="#projects" class="hover:text-cyan-400 transition duration-300">Projects</a>
@@ -482,6 +543,14 @@
                 <a href="#contact" class="hover:text-cyan-400 transition duration-300">Contact</a>
             </nav>
         </div>
+        
+        <nav id="mobile-menu" class="md:hidden">
+            <a href="#about" class="hover:text-cyan-400 transition duration-300" onclick="closeMenu()">About</a>
+            <a href="#skills" class="hover:text-cyan-400 transition duration-300" onclick="closeMenu()">Skills</a>
+            <a href="#projects" class="hover:text-cyan-400 transition duration-300" onclick="closeMenu()">Projects</a>
+            <a href="#certs" class="hover:text-cyan-400 transition duration-300" onclick="closeMenu()">Certifications</a>
+            <a href="#contact" class="hover:text-cyan-400 transition duration-300" onclick="closeMenu()">Contact</a>
+        </nav>
     </header>
 
     <section class="hero-section relative z-10 section-animate flex flex-col md:flex-row items-center justify-center max-w-6xl md:space-x-12">
@@ -977,6 +1046,23 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
 
         // Dynamic Footer Year
         document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // ============================
+        // MOBILE MENU LOGIC
+        // ============================
+        const menuToggleBtn = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            menuToggleBtn.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            menuToggleBtn.classList.remove('active');
+            // Menu visibility is handled by CSS based on the 'active' class
+        }
+
+        menuToggleBtn.addEventListener('click', toggleMenu);
     </script>
 </body>
 </html>
