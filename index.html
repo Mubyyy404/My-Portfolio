@@ -1,0 +1,842 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mohamed Mubeen - Cybersecurity Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+    <style>
+        /* Global font */
+        body {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Vanta.js background styling */
+        #vanta-bg {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Enhanced Photo Slider */
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-slide {
+            animation: slide 30s linear infinite;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        #photo-slider:hover .animate-slide {
+            animation-play-state: paused;
+        }
+
+        .slider-item {
+            flex: 0 0 auto;
+            width: 80vw; /* Responsive width for mobile */
+            max-width: 360px;
+            margin-right: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        @media (min-width: 640px) {
+            .slider-item {
+                width: 360px;
+                margin-right: 24px;
+            }
+        }
+
+        .slider-item:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+        }
+
+        .slider-item img {
+            position: relative;
+            z-index: 1;
+        }
+
+        .slider-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(6, 182, 212, 0.2), rgba(0, 0, 0, 0.5));
+            border-radius: 0.75rem;
+            z-index: 0;
+        }
+
+        /* Navigation Dots */
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(6, 182, 212, 0.3);
+            border-radius: 50%;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .dot:hover {
+            transform: scale(1.3);
+        }
+
+        .dot.active {
+            background: rgba(6, 182, 212, 1);
+            transform: scale(1.3);
+        }
+
+        /* Contact links styling */
+        .contact-links li {
+            margin-bottom: 20px;
+        }
+
+        .contact-links a {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .contact-links img {
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+        }
+
+        .contact-links span {
+            font-size: 18px;
+        }
+
+        /* Neon Glow for Headings */
+        h3 {
+            position: relative;
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        /* Fade-In Animation for Sections */
+        .section-animate {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .section-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Neon Button */
+        .neon-btn {
+            position: relative;
+            background: linear-gradient(45deg, #06B6D4, #22D3EE); /* Cyan-based gradient */
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+
+        .neon-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .neon-btn:hover::before {
+            left: 100%;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.8); }
+            100% { box-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
+        }
+        
+        /* MODIFIED: Scanning Animation for Profile Picture */
+        .profile-scan {
+            position: relative;
+            border-radius: 50%;
+            z-index: 10; /* Ensure it's above other elements if needed */
+        }
+
+        /* Scanning effect: a pulsating box-shadow/border simulation */
+        .profile-scan::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 5px solid transparent;
+            border-radius: 50%;
+            z-index: 1;
+            animation: scan-pulse 3s infinite linear;
+            box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
+        }
+
+        @keyframes scan-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
+                border-color: rgba(6, 182, 212, 0);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 20px 5px rgba(6, 182, 212, 0.8);
+                border-color: rgba(6, 182, 212, 1);
+                transform: scale(1.05);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
+                border-color: rgba(6, 182, 212, 0);
+                transform: scale(1);
+            }
+        }
+        /* End Scanning Animation */
+
+        /* Hero Section Responsive Styles */
+        .hero-section {
+            padding: 3rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-section {
+                padding: 5rem 4rem;
+            }
+        }
+
+        /* Hero Text Styles for Typing Animation */
+        #typing-cursor {
+            font-weight: bold;
+            display: inline-block;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Modal for Resume Preview and Offer */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: #1F2937;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 4xl;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content iframe {
+            width: 100%;
+            height: 70vh;
+            border: none;
+            border-radius: 0.5rem;
+            overflow: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ffffff;
+        }
+
+        @media (max-width: 640px) {
+            .modal-content iframe {
+                height: 50vh;
+            }
+        }
+        
+        /* Custom style for GitHub icon visibility on dark background */
+        .filter-invert {
+            filter: invert(1);
+        }
+        
+        /* Ensure the entire project card is clickable and styled as a link */
+        .project-card-link {
+            text-decoration: none; /* Remove underline from the link wrapping the card */
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white relative">
+    <div id="vanta-bg"></div>
+
+    <div id="offer-modal" class="modal">
+        <div class="modal-content max-w-md text-center">
+            <span class="close-btn" onclick="closeOfferModal()">&times;</span>
+            <h3 class="text-3xl font-bold text-cyan-400 mb-4">Hiring Opportunity! 🚀</h3>
+            <p class="text-lg text-gray-300 mb-6">Mohamed Mubeen is currently open for a full-time role in Web Application Penetration Testing or a similar Cybersecurity position.</p>
+            <p class="text-md text-gray-400 mb-6">View his resume or connect now to discuss how he can secure your organization.</p>
+            <div class="flex justify-center space-x-4">
+                <button onclick="openResumeModal(); closeOfferModal();" class="neon-btn text-white px-4 py-2 rounded-full transform transition hover:scale-105 active:scale-95">View Resume</button>
+                <a href="Mohamed Mubeen resume.pdf" onclick="closeOfferModal()" class="neon-btn text-white px-4 py-2 rounded-full transform transition hover:scale-105 active:scale-95">Contact Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="resume-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeResumeModal()">&times;</span>
+            <iframe src="Mohamed Mubeen resume.pdf" title="Resume Preview"></iframe>
+            <div class="text-center mt-4">
+                <a href="Mohamed Mubeen resume.pdf" download class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95">Download Resume</a>
+            </div>
+        </div>
+    </div>
+
+    <header class="bg-gray-900 bg-opacity-80 shadow-lg p-4 sm:p-6 sticky top-0 z-50 backdrop-blur-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl sm:text-3xl font-bold text-cyan-400 transform transition hover:scale-110">Mohamed Mubeen</h1>
+            <nav class="space-x-4 sm:space-x-6">
+                <a href="#about" class="hover:text-cyan-400 transition duration-300">About</a>
+                <a href="#skills" class="hover:text-cyan-400 transition duration-300">Skills</a>
+                <a href="#projects" class="hover:text-cyan-400 transition duration-300">Projects</a>
+                <a href="#certs" class="hover:text-cyan-400 transition duration-300">Certifications</a>
+                <a href="#contact" class="hover:text-cyan-400 transition duration-300">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero-section relative z-10 section-animate flex flex-col md:flex-row items-center justify-center max-w-6xl md:space-x-12">
+        
+        <div class="mb-6 md:mb-0 md:mr-12 profile-scan">
+            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%202.jpg" 
+                 alt="Mohamed Mubeen Professional Avatar" 
+                 class="w-48 h-48 rounded-full object-cover border-4 
+border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
+            >
+        </div>
+        
+        <div class="text-center md:text-left max-w-xl">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-cyan-400 mb-4 whitespace-nowrap">Hi, I'm a Cybersecurity Enthusiast</h2>
+            
+            <p class="hero-text text-gray-300 mx-auto md:mx-0 text-base sm:text-lg min-h-[3rem]">
+                <span id="typed-text"></span>
+                <span id="typing-cursor" class="text-cyan-400">|</span>
+            </p>
+            <div class="mt-6 flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="Mohamed Mubeen resume.pdf" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Connect with Mohamed Mubeen">Connect with Me</a>
+                <button onclick="openResumeModal()" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Preview and Download Resume">Get My Resume</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-16 px-4 sm:px-16 bg-gray-900 bg-opacity-80 backdrop-blur-md relative z-10 section-animate">
+        <h3 class="text-3xl font-bold text-cyan-400 mb-6">About Me</h3>
+        <p class="text-gray-400 leading-loose transform transition duration-500 hover:translate-x-2">
+            I'm Mohamed Mubeen, a passionate Cybersecurity student driven by a strong interest in ethical hacking, penetration testing, and securing digital environments.
+            I specialize as a Web Application Penetration Tester, with hands-on experience in identifying vulnerabilities, using industry-standard tools like Burp Suite, Wireshark, and Metasploit, and implementing effective mitigation strategies. Through multiple internships and practical projects, I've gained real-world exposure to offensive and defensive cybersecurity techniques.
+            Now, I'm ready to take the next step — and open to work in the professional cybersecurity field to apply my skills and continue learning on the frontlines of digital defense.
+        </p>
+    </section>
+
+    <section id="skills" class="py-16 px-4 sm:px-16 bg-gray-950 bg-opacity-80 backdrop-blur-md relative z-10 section-animate">
+        <h3 class="text-3xl font-bold text-cyan-400 mb-6">Skills</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Web Pentesting</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Vulnerability Assessment</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Network Security</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Threat Hunting</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Cryptography</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Security Auditing</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Python</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Bash Scripting</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Instructor</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Public Speaking</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Team Leading</div>
+            <div class="bg-gray-800 p-4 rounded-xl shadow-lg text-center transform transition duration-300 hover:scale-110 active:scale-95">Log Monitoring</div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-16 px-4 sm:px-16 bg-gray-900 bg-opacity-80 backdrop-blur-md relative z-10 section-animate">
+        <h3 class="text-3xl font-bold text-cyan-400 mb-6">Projects</h3>
+        <ul class="space-y-6">
+            <a href="https://github.com/Mubyyy404/USB-HID-Prevention-System-Placeholder" target="_blank" rel="noopener noreferrer" title="View Project on GitHub" class="project-card-link">
+                <li class="bg-gray-800 p-5 rounded-xl shadow-xl transform transition-all duration-300 ease-in-out hover:-translate-y-2 hover:scale-105 active:scale-95 cursor-pointer block">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="text-xl font-semibold text-white">USB HID Attack Prevention System</h4>
+                        <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" class="w-6 h-6 inline-block filter-invert">
+                    </div>
+                    <p class="text-gray-400 text-sm">Detects and blocks malicious Rubber Ducky attacks using USB anomaly detection and whitelisting.</p>
+                </li>
+            </a>
+            <a href="https://github.com/Mubyyy404/Deception-Honeypot-Placeholder" target="_blank" rel="noopener noreferrer" title="View Project on GitHub" class="project-card-link">
+                <li class="bg-gray-800 p-5 rounded-xl shadow-xl transform transition-all duration-300 ease-in-out hover:-translate-y-2 hover:scale-105 active:scale-95 cursor-pointer block">
+                    <div class="flex justify-between items-center mb-2">
+                        <h4 class="text-xl font-semibold text-white">Deception-Based Honeypot</h4>
+                        <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" class="w-6 h-6 inline-block filter-invert">
+                    </div>
+                    <p class="text-gray-400 text-sm">Simulated fake SSH/FTP services to attract attackers and log intrusion attempts.</p>
+                </li>
+            </a>
+            </ul>
+    </section>
+
+    <section id="certs" class="py-16 px-4 sm:px-16 bg-gray-950 bg-opacity-80 backdrop-blur-md relative z-10 section-animate">
+        <h3 class="text-3xl font-bold text-cyan-400 mb-6">Certifications</h3>
+        <ul id="cert-list" class="space-y-4">
+            <li class="bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95">
+                <a href="https://raw.githubusercontent.com/Mubyyy404/photo-2/refs/heads/main/photo%204.jpg" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">SecOps - Certified AppSec Practitioner (CAP)</a>
+            </li>
+            <li class="bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95">
+                <a href="https://training.fortinet.com/admin/tool/certificate/index.php?code=7765568602MM" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Fortinet - Fundamentals Of CyberSecurity</a>
+            </li>
+            <li class="bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95">
+                <a href="https://training.fortinet.com/mod/customcert/verify_certificate.php?contextid=251439&code=ifDnQMuCs4&qrcode=1" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Fortinet - NSE 1 Network Security Associate</a>
+            </li>
+            <li class="bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95">
+                <a href="https://training.fortinet.com/admin/tool/certificate/index.php?code=0695498537MM" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Fortinet - Fortigate 7.4 Operator Self-paced (FCA)</a>
+            </li>
+            <li class="bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95">
+                <a href="https://media-hosting.imagekit.io/20f5ff28b4eb407d/1725276624570_page-0001.jpg?Expires=1841837704&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=r0ra0crvQQtkbcx12pjXr-ofWzs1AsomJfGKyIIRcAeJ8vhMGl~vlqUEu~o5piqYLXdRMJkdOqDyAd~11FlOAKnP21p~QiLoXETCmPj-DoiZ0eCaHCws4dW9JNrL2aAdyJCUfYRKorqn9Ltj7Nh-VJ6pPWbsjWnsFp4I~eJpv9dSjW0aXC5ytnjZnS~S80HPIn9dfDf5~OnMuLt9Q92LK9pIL4rGV0KssW3XhJ9Gz0XIY7D9ig5YHj-hGdhsS2GU24erFlRO~QM5U5vRZEOE15OFDXF5r9h3v4zjzMbEA__" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Palo Alto - CyberSecurity Fundamentals</a>
+            </li>
+            
+            <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
+                <a href="https://media.licdn.com/dms/image/v2/D5622AQF5MDTXCQXMmQ/feedshare-shrink_800/feedshare-shrink_800/0/1723775927774?e=1750291200&v=beta&t=7c2xxWV_awIBseaesgoKoNE991OVU8wYZEkSv76wX1Q" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Palo Alto - Network Security</a>
+            </li>
+            <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
+                <a href="https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-MMB90QPAHZ.png" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Tryhackme - Jr Penetration Tester</a>
+            </li>
+            <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
+                <a href="https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-73TPELTJV8.png" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Tryhackme - Pre Security</a>
+            </li>
+            <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
+                <a href="https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-PQL8BRC9ZM.png" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Tryhackme - Introduction to CyberSecurity</a>
+            </li>
+            <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
+                <a href="https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-3VVIYZBXN0.png" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Tryhackme - Web Fundamentals</a>
+            </li>
+            <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
+                <a href="https://codered.eccouncil.org/certificate/523f2709-af83-4926-962c-9ae7fd6d6690?logged=false" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">EC-Council - SQL Injection Attack</a>
+            </li>
+            <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
+                <a href="https://codered.eccouncil.org/certificate/61835114-d420-49f9-9fca-1cff4cf96449?logged=false" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">EC-Council - Dark Web Anonymity and Cryptocurrency</a>
+            </li>
+            <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
+                <a href="https://www.linkedin.com/posts/mohamed-mubeen-8028b3287_communication-skill-activity-7163935511143702528-Zo89?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEW448IBBE5X5Z9KRXMjVhZ8mcTVwBkexMQ" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">TCS iON - Communication Skills</a>
+            </li>
+            <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
+                <a href="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/cert.jpeg" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">HackQuest2K25 - National Level CTF Hackathon</a>
+            </li>
+        </ul>
+
+        <div class="text-center mt-6">
+            <button id="toggle-certs-btn" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-105 active:scale-95" aria-label="Toggle more certifications">
+                Show More (9 more)
+            </button>
+        </div>
+    </section>
+    
+    <section id="photos" class="py-16 px-4 sm:px-16 bg-gray-950 bg-opacity-80 backdrop-blur-md overflow-hidden relative z-10 section-animate">
+        <h3 class="text-3xl font-bold text-cyan-400 mb-10 text-center">My Moments Photos</h3>
+        <div class="relative w-full">
+            <div id="photo-slider" class="flex overflow-hidden">
+                <div class="animate-slide flex">
+                    <div class="slider-item relative">
+                        <div class="bg-gray-800 rounded-xl p-4 shadow-lg">
+                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/jmc.jpg" alt="Mohamed Mubeen at Jamal Mohamed College in 2023" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
+                            <p class="text-gray-300 mt-4 text-center text-sm">Started my B.Sc IT with Cybersecurity at Jamal Mohamed College in 2023. My cybersecurity journey began here, providing valuable skills and memories.</p>
+                        </div>
+                    </div>
+                    <div class="slider-item relative">
+                        <div class="bg-gray-800 rounded-xl p-4 shadow-lg">
+                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%202.jpg" alt="Mohamed Mubeen as PRO Chairman for HackQuest2K25" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
+                            <p class="text-gray-300 mt-4 text-center text-sm">Served as PRO Chairman for HackQuest2K25, enhancing my communication and event coordination skills.</p>
+                        </div>
+                    </div>
+                    <div class="slider-item relative">
+                        <div class="bg-gray-800 rounded-xl p-4 shadow-lg">
+                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/cert.jpeg" alt="HackQuest2K25 certificate for 7th place" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
+                            <p class="text-gray-300 mt-4 text-center text-sm">Participated in HackQuest2K25 with my team, securing 7th place out of 556 teams, showcasing our skills!</p>
+                        </div>
+                    </div>
+                    <div class="slider-item relative">
+                        <div class="bg-gray-800 rounded-xl p-4 shadow-lg">
+                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/Stage%20HackQuest2K25.jpeg" alt="Mohamed Mubeen receiving internship offer at HackQuest2K25" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
+                            <p class="text-gray-300 mt-4 text-center text-sm">Received my internship offer from Cyber Heals on stage at HackQuest2K25, presented by the Superintendent of Police, Trichy.</p>
+                        </div>
+                    </div>
+                    <div class="slider-item relative">
+                        <div class="bg-gray-800 rounded-xl p-4 shadow-lg">
+                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%204.jpg" alt="SecOps CAP certification" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
+                            <p class="text-gray-300 mt-4 text-center text-sm">SecOps CAP Certified: Validated my skills in securing systems and managing security operations.</p>
+                        </div>
+                    </div>
+                    <div class="slider-item relative">
+                        <div class="bg-gray-800 rounded-xl p-4 shadow-lg">
+                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/jmc.jpg" alt="Mohamed Mubeen at Jamal Mohamed College in 2023" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
+                            <p class="text-gray-300 mt-4 text-center text-sm">Started my B.Sc IT with Cybersecurity at Jamal Mohamed College in 2023. My cybersecurity journey began here, providing valuable skills and memories.</p>
+                        </div>
+                    </div>
+                    <div class="slider-item relative">
+                        <div class="bg-gray-800 rounded-xl p-4 shadow-lg">
+                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%202.jpg" alt="Mohamed Mubeen as PRO Chairman for HackQuest2K25" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
+                            <p class="text-gray-300 mt-4 text-center text-sm">Served as PRO Chairman for HackQuest2K25, enhancing my communication and event coordination skills.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 px-4 sm:px-16 bg-gray-900 bg-opacity-80 backdrop-blur-md relative z-10 section-animate">
+        <h3 class="text-3xl font-bold text-cyan-400 mb-6">Contact Me</h3>
+        <ul class="contact-links mb-6">
+            <li>
+                <a href="https://www.linkedin.com/in/mohamed-mubeen-8028b3287/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn Profile" />
+                    <span>LinkedIn</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.instagram.com/_mubee_4u/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram Profile" />
+                    <span>Instagram</span>
+                </a>
+            </li>
+            <li>
+                <a href="mailto:mohamedmubeen1005@gmail.com">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email Contact" />
+                    <span>Email</span>
+                </a>
+            </li>
+        </ul>
+        <form action="https://formspree.io/f/mdkgykry" method="POST" class="space-y-4 mt-6 max-w-full sm:max-w-xl">
+            <div>
+                <label for="name" class="sr-only">Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Name"
+                    required
+                    class="w-full p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                >
+            </div>
+            <div>
+                <label for="email" class="sr-only">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                    class="w-full p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                >
+            </div>
+            <div>
+                <label for="message" class="sr-only">Message</label>
+                <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Message"
+                    rows="5"
+                    required
+                    class="w-full p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                ></textarea>
+            </div>
+            <button
+                type="submit"
+                class="bg-cyan-500 text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95"
+            >
+                Send Message
+            </button>
+        </form>
+    </section>
+
+    <footer class="text-center py-6 bg-gray-800 text-gray-400 relative z-10">
+        © <span id="current-year"></span> Cybersecurity Portfolio. All rights reserved.
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script>
+        // Vanta.js Background with Mobile Optimization
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x216983,
+            backgroundColor: 0x000000,
+            points: window.innerWidth < 640 ? 8.00 : 12.00, // Reduce points on mobile
+            maxDistance: 22.00,
+            spacing: 18.00,
+            showDots: false,
+            backgroundAlpha: 1.00
+        });
+
+        // ============================
+        // MODAL FUNCTIONS
+        // ============================
+
+        // Resume Modal Functions
+        function openResumeModal() {
+            document.getElementById('resume-modal').classList.add('open');
+        }
+
+        function closeResumeModal() {
+            document.getElementById('resume-modal').classList.remove('open');
+        }
+        
+        // Offer Modal Functions
+        function openOfferModal() {
+            // Delay to allow page content to load first
+            setTimeout(() => {
+                document.getElementById('offer-modal').classList.add('open');
+            }, 1000); 
+        }
+
+        function closeOfferModal() {
+            document.getElementById('offer-modal').classList.remove('open');
+        }
+
+        // Close any modal when clicking outside
+        window.onclick = function(event) {
+            const resumeModal = document.getElementById('resume-modal');
+            const offerModal = document.getElementById('offer-modal');
+            if (event.target === resumeModal) {
+                closeResumeModal();
+            }
+            if (event.target === offerModal) {
+                closeOfferModal();
+            }
+        };
+
+        // Open Offer Modal on Page Load
+        window.onload = openOfferModal; 
+
+
+        // ============================
+        // CERTIFICATION TOGGLE LOGIC
+        // ============================
+        const extraCerts = document.querySelectorAll('.cert-extra');
+        const toggleBtn = document.getElementById('toggle-certs-btn');
+        const hiddenCount = extraCerts.length; 
+        let certsVisible = false;
+
+        toggleBtn.addEventListener('click', () => {
+            certsVisible = !certsVisible;
+            
+            if (certsVisible) {
+                extraCerts.forEach(cert => {
+                    cert.style.display = 'block';
+                    void cert.offsetHeight; // Force reflow
+                    cert.style.opacity = '1'; 
+                });
+                toggleBtn.textContent = 'Show Less';
+            } else {
+                extraCerts.forEach(cert => {
+                    cert.style.opacity = '0'; // Start fade out
+                    setTimeout(() => {
+                        cert.style.display = 'none';
+                    }, 600); 
+                });
+                toggleBtn.textContent = `Show More (${hiddenCount} more)`;
+            }
+        });
+
+        // ============================
+        // TYPING ANIMATION LOGIC
+        // ============================
+        const phrases = [
+            "Passionate about ethical hacking, penetration testing, and protecting digital frontiers.",
+            "Specializing in Web Application Penetration Testing (WAPT).",
+            "Actively seeking full-time roles in Cybersecurity.",
+            "Let's secure the world together."
+        ];
+        const typedTextSpan = document.getElementById('typed-text');
+        const typingCursor = document.getElementById('typing-cursor');
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingSpeed = 70;
+        const deletingSpeed = 40;
+        const delayBetweenPhrases = 1500;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                // Deleting
+                typedTextSpan.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                // Typing
+                typedTextSpan.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let currentSpeed = isDeleting ? deletingSpeed : typingSpeed;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                // Done typing current phrase
+                currentSpeed = delayBetweenPhrases;
+                isDeleting = true;
+                typingCursor.style.animationName = 'none'; // Stop cursor blink while waiting
+            } else if (isDeleting && charIndex === 0) {
+                // Done deleting current phrase
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                currentSpeed = 500; // Small pause before starting next phrase
+                typingCursor.style.animationName = 'blink-caret'; // Restart cursor blink
+            }
+
+            setTimeout(type, currentSpeed);
+        }
+
+        // Start typing animation after a small delay
+        setTimeout(type, 1500);
+
+
+        // ============================
+        // SLIDER AND GENERAL LOGIC
+        // ============================
+
+        // Slider Navigation Dots and Touch Swipe
+        const slider = document.querySelector('#photo-slider .animate-slide');
+        const dots = document.querySelectorAll('.dot');
+        const numSlides = 5;
+        const getSlideWidth = () => window.innerWidth < 640 ? window.innerWidth * 0.8 + 16 : 360 + 24; // Dynamic slide width
+        let currentSlide = 0;
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                slider.style.transform = `translateX(-${currentSlide * getSlideWidth()}px)`;
+                dots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+                slider.style.animationPlayState = 'paused';
+                setTimeout(() => {
+                    slider.style.animationPlayState = 'running';
+                }, 3000);
+            });
+        });
+
+        slider.addEventListener('animationiteration', () => {
+            currentSlide = (currentSlide + 1) % numSlides;
+            dots.forEach(d => d.classList.remove('active'));
+            dots[currentSlide].classList.add('active');
+        });
+
+        // Touch Swipe Support
+        slider.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            slider.style.animationPlayState = 'paused';
+        });
+
+        slider.addEventListener('touchmove', (e) => {
+            touchEndX = e.touches[0].clientX;
+        });
+
+        slider.addEventListener('touchend', () => {
+            const slideWidth = getSlideWidth();
+            let moved = false;
+
+            if (touchStartX - touchEndX > 50) {
+                // Swipe left
+                currentSlide = (currentSlide + 1) % numSlides;
+                moved = true;
+            } else if (touchEndX - touchStartX > 50) {
+                // Swipe right
+                currentSlide = (currentSlide - 1 + numSlides) % numSlides;
+                moved = true;
+            }
+            
+            if (moved) {
+                slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+                dots.forEach(d => d.classList.remove('active'));
+                dots[currentSlide].classList.add('active');
+            }
+
+            setTimeout(() => {
+                slider.style.animationPlayState = 'running';
+            }, 3000);
+        });
+
+        // Section Fade-In Animation
+        const sections = document.querySelectorAll('.section-animate');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Dynamic Footer Year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
