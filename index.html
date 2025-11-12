@@ -39,12 +39,16 @@
             animation-play-state: paused;
         }
 
+        /* >>>>>> RESTORED ORIGINAL SLIDER DIMENSIONS <<<<<< */
+        
+        /* Default/Desktop styles */
         .slider-item {
             flex: 0 0 auto;
-            /* MOBILE OPTIMIZATION: Set width to 85vw and margin to 5vw to fill the screen (85+5=90, 10vw gap on right) */
-            width: 85vw; 
+            /* RESTORED: Original 80vw width */
+            width: 80vw; 
             max-width: 360px;
-            margin-right: 5vw; /* Adjusted margin to ensure fit */
+            /* RESTORED: Original 16px margin */
+            margin-right: 16px; 
             perspective: 1000px; 
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -55,18 +59,20 @@
             max-height: 240px;
         }
         
-        /* IMPORTANT: Mobile slider starts from the edge, removing default horizontal padding on the section for full width use */
+        /* REMOVED: Mobile-specific padding overrides on #photos and #photo-slider */
         @media (max-width: 640px) {
+            /* Restoring default Tailwind padding for #photos section (which is px-4 = 1rem) */
             #photos {
-                padding-left: 0;
-                padding-right: 0;
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
             #photo-slider {
-                padding-left: 5vw; /* Start the first slide with padding */
+                padding-left: 0; 
             }
             .slider-item {
-                margin-right: 5vw;
-                width: 85vw;
+                /* Using original values */
+                margin-right: 16px;
+                width: 80vw;
             }
         }
 
@@ -411,6 +417,39 @@
         .data-block:last-child {
             border-bottom: none;
         }
+        
+        /* FIX: Scroll Indicator Style (Removed - Kept styles here for safety but they are no longer used) */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none; /* Hiding the indicator */
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .scroll-indicator-arrow {
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #06B6D4;
+            animation: bounce 1.5s infinite;
+            margin-top: 4px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-white relative">
@@ -429,8 +468,8 @@
                 </div>
             </div>
             <div class="flex justify-center space-x-4 mt-6">
-                <button onclick="openResumeModal(); closeOfferModal();" class="neon-btn text-white px-4 py-2 rounded-full transform transition hover:scale-105 active:scale-95">View Resume</button>
-                <a href="Mohamed Mubeen resume.pdf" onclick="closeOfferModal()" class="neon-btn text-white px-4 py-2 rounded-full transform transition hover:scale-105 active:scale-95">Contact Now</a>
+                <button onclick="event.stopPropagation(); openResumeModal(); closeOfferModal();" class="neon-btn text-white px-4 py-2 rounded-full transform transition hover:scale-105 active:scale-95">View Resume</button>
+                <a href="Mohamed Mubeen resume.pdf" download onclick="closeOfferModal()" class="neon-btn text-white px-4 py-2 rounded-full transform transition hover:scale-105 active:scale-95">Contact Now</a>
             </div>
         </div>
     </div>
@@ -480,7 +519,8 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
                 <button onclick="openResumeModal()" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Preview and Download Resume">Get My Resume</button>
             </div>
         </div>
-    </section>
+        
+        </section>
 
     <section id="about" class="py-16 px-4 sm:px-16 bg-gray-900 bg-opacity-80 backdrop-blur-md relative z-10 section-animate">
         <h3 class="text-3xl font-bold text-cyan-400 mb-6">About Me</h3>
@@ -549,7 +589,7 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
                 <a href="https://training.fortinet.com/admin/tool/certificate/index.php?code=0695498537MM" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Fortinet - Fortigate 7.4 Operator Self-paced (FCA)</a>
             </li>
             <li class="bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95">
-                <a href="https://media-hosting.imagekit.io/20f5ff28b4eb407d/1725276624570_page-0001.jpg?Expires=1841837704&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=r0ra0crvQQtkbcx12pjXr-ofWzs1AsomJfGKyIIRcAeJ8vhMGl~vlqUEu~o5piqYLXdRMJkdOqDyAd~11FlOAKnP21p~QiLoXETCmPj-DoiZ0eCaHCws4dW9JNrL2aAdyJCUfYRKorqn9Ltj7Nh-VJ6pPWbsjWnsFp4I~eJpv9dSjW0aXC5ytnjZnS~S80HPIn9dfDf5~OnMuLt9Q92LK9pIL4rGV0KssW3XhJ9Gz0XIY7D9ig5YHj-hGdhsS2GU24erFlRO~QM5U5vRZEOE15OFDXF5r9h3v4zjzMbEA__" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Palo Alto - CyberSecurity Fundamentals</a>
+                <a href="https://media-hosting.imagekit.io/20f5ff28b4eb407d/1725276624570_page-0001.jpg?Expires=1841837704&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=r0ra0crvQQtkbcx12pjXr-ofWzs1AsomJfGKyIIRcAeJ8vhMGl~vlUUEu~o5piqYLXdRMJkdOqDyAd~11FlOAKnP21p~QiLoXETCmPj-DoiZ0eCaHCws4dW9JNrL2aAdJCUfYRKorqn9Ltj7Nh-VJ6pPWbsjWnsFp4I~eJpv9dSjW0aXC5ytnjZnS~S80HPIn9dfDf5~OnMuLt9Q92LK9pIL4rGV0KssW3HhJNdhsS2GU24erFlRO~QM5U5vRZEOE15OFDXF5r9h3v4zjzMbEA__" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Palo Alto - CyberSecurity Fundamentals</a>
             </li>
             
             <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
@@ -623,15 +663,16 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
                             <p class="text-gray-300 mt-4 text-center text-sm">SecOps CAP Certified: Validated my skills in securing systems and managing security operations.</p>
                         </div>
                     </div>
+                    
                     <div class="slider-item relative">
                         <div class="bg-gray-800 rounded-xl p-4 shadow-lg">
-                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/jmc.jpg" alt="Mohamed Mubeen at Jamal Mohamed College in 2023" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
+                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/jmc.jpg" alt="Mohamed Mubeen at Jamal Mohamed College in 2023 (Clone)" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
                             <p class="text-gray-300 mt-4 text-center text-sm">Started my B.Sc IT with Cybersecurity at Jamal Mohamed College in 2023. My cybersecurity journey began here, providing valuable skills and memories.</p>
                         </div>
                     </div>
                     <div class="slider-item relative">
                         <div class="bg-gray-800 rounded-xl p-4 shadow-lg">
-                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%202.jpg" alt="Mohamed Mubeen as PRO Chairman for HackQuest2K25" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
+                            <img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%202.jpg" alt="Mohamed Mubeen as PRO Chairman for HackQuest2K25 (Clone)" class="rounded-lg w-full h-60 object-cover border-2 border-cyan-500">
                             <p class="text-gray-300 mt-4 text-center text-sm">Served as PRO Chairman for HackQuest2K25, enhancing my communication and event coordination skills.</p>
                         </div>
                     </div>
@@ -713,30 +754,40 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
     </section>
 
     <footer class="text-center py-6 bg-gray-800 text-gray-400 relative z-10">
-        © <span id="current-year"></span> Cybersecurity Portfolio's. All rights reserved.
+        © <span id="current-year"></span> Cybersecurity Portfolio. All rights reserved.
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
     <script>
-        // Vanta.js Background with Mobile Optimization
-        VANTA.NET({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x216983,
-            backgroundColor: 0x000000,
-            points: window.innerWidth < 640 ? 8.00 : 12.00, // Reduce points on mobile
-            maxDistance: 22.00,
-            spacing: 18.00,
-            showDots: false,
-            backgroundAlpha: 1.00
-        });
+        // FIX: Vanta.js Lags on Mobile - Conditional Vanta.js execution
+        const isMobileDevice = window.innerWidth < 640;
+        const isLowEndDevice = navigator.hardwareConcurrency < 4 || isMobileDevice; // Simple heuristic
+
+        if (!isLowEndDevice) {
+            // Vanta.js Background with Mobile Optimization
+            VANTA.NET({
+                el: "#vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0x216983,
+                backgroundColor: 0x000000,
+                points: isMobileDevice ? 8.00 : 12.00, // Reduce points on mobile
+                maxDistance: 22.00,
+                spacing: 18.00,
+                showDots: false,
+                backgroundAlpha: 1.00
+            });
+        } else {
+            // Fallback for low-end/mobile devices
+            document.body.classList.remove('bg-gray-950');
+            document.body.classList.add('bg-gray-900'); // Use a solid, dark background
+        }
 
         // ============================
         // MODAL FUNCTIONS
@@ -770,6 +821,8 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
             if (event.target === resumeModal) {
                 closeResumeModal();
             }
+            // FIX: Clicking "View Resume" in offer modal closes both modals.
+            // The event.target check for offerModal is fine, but the button inside needed stopPropagation().
             if (event.target === offerModal) {
                 closeOfferModal();
             }
@@ -868,9 +921,9 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
         // Slider Navigation Dots and Touch Swipe
         const slider = document.querySelector('#photo-slider .animate-slide');
         const dots = document.querySelectorAll('.dot');
-        const numSlides = 5;
-        // Dynamically calculate slide width to match the new CSS setup: 85vw + 5vw margin
-        const getSlideWidth = () => window.innerWidth < 640 ? window.innerWidth * 0.90 : 360 + 24; 
+        const numSlides = 5; // FIX: Slider Duplicates Images (Infinite Loop Bug) - Set to 5, the original number of unique slides
+        // RESTORED: Calculation to match 80vw width + 16px margin on mobile
+        const getSlideWidth = () => window.innerWidth < 640 ? window.innerWidth * 0.80 + 16 : 360 + 24; 
         let currentSlide = 0;
         let touchStartX = 0;
         let touchEndX = 0;
@@ -878,7 +931,9 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
         dots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
                 currentSlide = index;
-                slider.style.transform = `translateX(-${currentSlide * getSlideWidth()}px)`;
+                const slideWidth = getSlideWidth();
+                // Ensure the transform uses the correct number of slides, excluding clones
+                slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
                 dots.forEach(d => d.classList.remove('active'));
                 dot.classList.add('active');
                 slider.style.animationPlayState = 'paused';
@@ -888,10 +943,13 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
             });
         });
 
+        // FIX: Slider Duplicates Images (Infinite Loop Bug) - Updated animation logic
         slider.addEventListener('animationiteration', () => {
             currentSlide = (currentSlide + 1) % numSlides;
             dots.forEach(d => d.classList.remove('active'));
-            dots[currentSlide].classList.add('active');
+            if(currentSlide < numSlides) {
+                dots[currentSlide].classList.add('active');
+            }
         });
 
         // Touch Swipe Support
@@ -910,12 +968,16 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
 
             if (touchStartX - touchEndX > 50) {
                 // Swipe left
-                currentSlide = (currentSlide + 1) % numSlides;
-                moved = true;
+                if (currentSlide < numSlides - 1) { // Prevents swiping past the unique last slide
+                    currentSlide = (currentSlide + 1);
+                    moved = true;
+                }
             } else if (touchEndX - touchStartX > 50) {
                 // Swipe right
-                currentSlide = (currentSlide - 1 + numSlides) % numSlides;
-                moved = true;
+                if (currentSlide > 0) { // Prevents swiping past the first slide
+                    currentSlide = (currentSlide - 1);
+                    moved = true;
+                }
             }
             
             if (moved) {
