@@ -41,10 +41,10 @@
 
         .slider-item {
             flex: 0 0 auto;
-            /* MOBILE OPTIMIZATION: Use 85vw for better screen fit on small devices */
+            /* MOBILE OPTIMIZATION: Set width to 85vw and margin to 5vw to fill the screen (85+5=90, 10vw gap on right) */
             width: 85vw; 
             max-width: 360px;
-            margin-right: 16px;
+            margin-right: 5vw; /* Adjusted margin to ensure fit */
             perspective: 1000px; 
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -54,6 +54,22 @@
             height: 50vw; /* Keep image aspect ratio decent on mobile */
             max-height: 240px;
         }
+        
+        /* IMPORTANT: Mobile slider starts from the edge, removing default horizontal padding on the section for full width use */
+        @media (max-width: 640px) {
+            #photos {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            #photo-slider {
+                padding-left: 5vw; /* Start the first slide with padding */
+            }
+            .slider-item {
+                margin-right: 5vw;
+                width: 85vw;
+            }
+        }
+
 
         @media (min-width: 640px) {
             .slider-item {
@@ -697,7 +713,7 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
     </section>
 
     <footer class="text-center py-6 bg-gray-800 text-gray-400 relative z-10">
-        © <span id="current-year"></span> Cybersecurity Portfolio's. All rights reserved.
+        © <span id="current-year"></span> Cybersecurity Portfolio. All rights reserved.
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
@@ -853,7 +869,8 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
         const slider = document.querySelector('#photo-slider .animate-slide');
         const dots = document.querySelectorAll('.dot');
         const numSlides = 5;
-        const getSlideWidth = () => window.innerWidth < 640 ? window.innerWidth * 0.85 + 16 : 360 + 24; // Dynamic slide width
+        // Dynamically calculate slide width to match the new CSS setup: 85vw + 5vw margin
+        const getSlideWidth = () => window.innerWidth < 640 ? window.innerWidth * 0.90 : 360 + 24; 
         let currentSlide = 0;
         let touchStartX = 0;
         let touchEndX = 0;
