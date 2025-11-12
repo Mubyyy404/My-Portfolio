@@ -21,60 +21,6 @@
             left: 0;
             z-index: -1;
         }
-        
-        /* Mobile Menu Styles */
-        #mobile-menu {
-            display: none; /* Hidden by default on mobile */
-            position: absolute;
-            top: 100%; /* Position below the header */
-            right: 0;
-            width: 100%;
-            background-color: rgba(17, 24, 39, 0.95); /* Gray-900 with opacity */
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-            flex-direction: column;
-            padding: 1rem 0;
-            z-index: 49; /* Below the main header z-50 */
-        }
-        #mobile-menu a {
-            padding: 0.75rem 1.5rem;
-            text-align: center;
-            display: block;
-            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
-        }
-        #mobile-menu a:last-child {
-            border-bottom: none;
-        }
-        /* Mobile Menu Toggle button (Hamburger icon) */
-        .menu-toggle-btn {
-            display: none;
-            cursor: pointer;
-            width: 30px;
-            height: 30px;
-            flex-direction: column;
-            justify-content: space-around;
-            padding: 5px 0;
-        }
-        .menu-toggle-btn span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background: #22D3EE;
-            border-radius: 5px;
-        }
-        @media (max-width: 767px) {
-            .menu-toggle-btn {
-                display: flex;
-            }
-            .desktop-nav {
-                display: none;
-            }
-            /* Show the mobile menu when the 'open' class is toggled on the button */
-            .menu-toggle-btn.active + #mobile-menu {
-                display: flex;
-            }
-        }
-        /* END Mobile Menu Styles */
-
 
         /* Enhanced Photo Slider */
         @keyframes slide {
@@ -147,6 +93,60 @@
             }
         }
         /* >>>>>> END MOBILE SLIDER CSS <<<<<< */
+
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            display: none; /* Hidden by default on mobile */
+            position: absolute;
+            top: 100%; /* Position below the header */
+            right: 0;
+            width: 100%;
+            background-color: rgba(17, 24, 39, 0.95); /* Gray-900 with opacity */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            flex-direction: column;
+            padding: 1rem 0;
+            z-index: 49; /* Below the main header z-50 */
+        }
+        #mobile-menu a {
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            display: block;
+            border-bottom: 1px solid rgba(6, 182, 212, 0.1);
+        }
+        #mobile-menu a:last-child {
+            border-bottom: none;
+        }
+        /* Mobile Menu Toggle button (Hamburger icon) */
+        .menu-toggle-btn {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 5px 0;
+        }
+        .menu-toggle-btn span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background: #22D3EE;
+            border-radius: 5px;
+        }
+        @media (max-width: 767px) {
+            .menu-toggle-btn {
+                display: flex;
+            }
+            .desktop-nav {
+                display: none;
+            }
+            /* FIX: Show the mobile menu when the 'active' class is toggled */
+            #mobile-menu.active {
+                display: flex;
+            }
+        }
+        /* END Mobile Menu Styles */
+
 
         .slider-item:hover {
             /* Enhanced hover with slight 3D tilt (Coverflow/Carousel look) */
@@ -1048,18 +1048,20 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
         document.getElementById('current-year').textContent = new Date().getFullYear();
         
         // ============================
-        // MOBILE MENU LOGIC
+        // MOBILE MENU LOGIC (FIXED)
         // ============================
         const menuToggleBtn = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
 
         function toggleMenu() {
-            menuToggleBtn.classList.toggle('active');
+            // Toggles the class on the mobile menu itself, which is what the CSS targets.
+            mobileMenu.classList.toggle('active');
+            menuToggleBtn.classList.toggle('active'); // Optional: for hamburger animation
         }
 
         function closeMenu() {
+            mobileMenu.classList.remove('active');
             menuToggleBtn.classList.remove('active');
-            // Menu visibility is handled by CSS based on the 'active' class
         }
 
         menuToggleBtn.addEventListener('click', toggleMenu);
