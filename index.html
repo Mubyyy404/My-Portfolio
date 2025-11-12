@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Mohamed Mubeen - Cybersecurity Portfolio</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
@@ -39,15 +39,13 @@
             animation-play-state: paused;
         }
 
-        /* >>>>>> RESTORED ORIGINAL SLIDER DIMENSIONS <<<<<< */
+        /* >>>>>> MOBILE RESPONSIVE SLIDER CSS (85vw/5vw logic) <<<<<< */
         
         /* Default/Desktop styles */
         .slider-item {
             flex: 0 0 auto;
-            /* RESTORED: Original 80vw width */
             width: 80vw; 
             max-width: 360px;
-            /* RESTORED: Original 16px margin */
             margin-right: 16px; 
             perspective: 1000px; 
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -59,20 +57,28 @@
             max-height: 240px;
         }
         
-        /* REMOVED: Mobile-specific padding overrides on #photos and #photo-slider */
+        /* RESTORING: Mobile-specific CSS for slider compatibility */
         @media (max-width: 640px) {
-            /* Restoring default Tailwind padding for #photos section (which is px-4 = 1rem) */
+            /* FIX: Ensure Hero text alignment is centered */
+            .hero-text-container {
+                text-align: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+            .hero-text-buttons {
+                justify-content: center !important;
+            }
+            
             #photos {
-                padding-left: 1rem;
-                padding-right: 1rem;
+                padding-left: 0; /* Remove default padding */
+                padding-right: 0;
             }
             #photo-slider {
-                padding-left: 0; 
+                padding-left: 5vw; /* Start the first slide with padding */
             }
             .slider-item {
-                /* Using original values */
-                margin-right: 16px;
-                width: 80vw;
+                margin-right: 5vw; /* Adjusted margin */
+                width: 85vw; /* Adjusted width */
             }
         }
 
@@ -86,6 +92,7 @@
                 height: 240px; 
             }
         }
+        /* >>>>>> END MOBILE SLIDER CSS <<<<<< */
 
         .slider-item:hover {
             /* Enhanced hover with slight 3D tilt (Coverflow/Carousel look) */
@@ -224,7 +231,7 @@
             100% { box-shadow: 0 0 10px rgba(6, 182, 212, 0.5); }
         }
         
-        /* Scanning Animation for Profile Picture */
+        /* Scanning Animation for Profile Picture - RESTORED GLOW */
         .profile-scan {
             position: relative;
             border-radius: 50%;
@@ -247,7 +254,7 @@
             box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
         }
 
-        /* NEW: Sharper Pulse Animation */
+        /* RESTORED: Sharper Pulse Animation */
         @keyframes scan-pulse-sharp {
             0% {
                 box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
@@ -266,28 +273,8 @@
             }
         }
         
-        /* ADDED: Scanning line animation */
-        @keyframes scan-line {
-            0% { top: 0%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
-        }
+        /* REMOVED: Scanning line animation keyframes and pseudo-element */
 
-        /* ADDED: Scan line pseudo-element (same as before, complements new pulse) */
-        .profile-scan::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(to right, transparent, #22D3EE, transparent);
-            border-radius: 5px;
-            z-index: 2;
-            animation: scan-line 4s infinite linear;
-        }
-        /* End Scanning Animation */
 
         /* Hero Section Responsive Styles */
         .hero-section {
@@ -507,14 +494,14 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
             >
         </div>
         
-        <div class="text-center md:text-left max-w-xl">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-cyan-400 mb-4">Hi, I'm a Cybersecurity Enthusiast</h2>
+        <div class="md:text-left max-w-xl hero-text-container">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-cyan-400 mb-4 md:whitespace-nowrap">Hi, I'm a Cybersecurity Enthusiast</h2>
             
-            <p class="hero-text text-gray-300 mx-auto md:mx-0 text-base sm:text-lg min-h-[3rem]">
+            <p class="hero-text text-gray-300 mx-auto md:mx-0 text-base sm:text-lg">
                 <span id="typed-text"></span>
                 <span id="typing-cursor" class="text-cyan-400">|</span>
             </p>
-            <div class="mt-6 flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+            <div class="mt-6 flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 hero-text-buttons">
                 <a href="#contact" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Connect with Mohamed Mubeen">Connect with Me</a>
                 <button onclick="openResumeModal()" class="neon-btn text-white px-6 py-3 rounded-full shadow-lg transform transition-all duration-300 hover:scale-110 active:scale-95" aria-label="Preview and Download Resume">Get My Resume</button>
             </div>
@@ -589,7 +576,7 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
                 <a href="https://training.fortinet.com/admin/tool/certificate/index.php?code=0695498537MM" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Fortinet - Fortigate 7.4 Operator Self-paced (FCA)</a>
             </li>
             <li class="bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95">
-                <a href="https://media-hosting.imagekit.io/20f5ff28b4eb407d/1725276624570_page-0001.jpg?Expires=1841837704&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=r0ra0crvQQtkbcx12pjXr-ofWzs1AsomJfGKyIIRcAeJ8vhMGl~vlUUEu~o5piqYLXdRMJkdOqDyAd~11FlOAKnP21p~QiLoXETCmPj-DoiZ0eCaHCws4dW9JNrL2aAdJCUfYRKorqn9Ltj7Nh-VJ6pPWbsjWnsFp4I~eJpv9dSjW0aXC5ytnjZnS~S80HPIn9dfDf5~OnMuLt9Q92LK9pIL4rGV0KssW3HhJNdhsS2GU24erFlRO~QM5U5vRZEOE15OFDXF5r9h3v4zjzMbEA__" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Palo Alto - CyberSecurity Fundamentals</a>
+                <a href="https://media-hosting.imagekit.io/20f5ff28b4eb407d/1725276624570_page-0001.jpg?Expires=1841837704&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=r0ra0crvQQtkbcx12pjXr-ofWzs1AsomJfGKyIIRcAeJ8vhMGl~vlqUEu~o5piqYLXdRMJkdOqDyAd~11FlOAKnP21p~QiLoXETCmPj-DoiZ0eCaHCws4dW9JNrL2aAdyJCUfYRKorqn9Ltj7Nh-VJ6pPWbsjWnsFp4I~eJpv9dSjW0aXC5ytnjZnS~S80HPIn9dfDf5~OnMuLt9Q92LK9pIL4rGV0KssW3XhJ9Gz0XIY7D9ig5YHj-hGdhsS2GU24erFlRO~QM5U5vRZEOE15OFDXF5r9h3v4zjzMbEA__" class="text-cyan-300 hover:underline" target="_blank" rel="noopener noreferrer">Palo Alto - CyberSecurity Fundamentals</a>
             </li>
             
             <li class="cert-extra bg-gray-800 p-4 rounded-xl shadow-md transform transition hover:scale-105 active:scale-95" style="display: none; opacity: 0;">
@@ -760,34 +747,24 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
     <script>
-        // FIX: Vanta.js Lags on Mobile - Conditional Vanta.js execution
-        const isMobileDevice = window.innerWidth < 640;
-        const isLowEndDevice = navigator.hardwareConcurrency < 4 || isMobileDevice; // Simple heuristic
-
-        if (!isLowEndDevice) {
-            // Vanta.js Background with Mobile Optimization
-            VANTA.NET({
-                el: "#vanta-bg",
-                mouseControls: true,
-                touchControls: true,
-                gyroControls: false,
-                minHeight: 200.00,
-                minWidth: 200.00,
-                scale: 1.00,
-                scaleMobile: 1.00,
-                color: 0x216983,
-                backgroundColor: 0x000000,
-                points: isMobileDevice ? 8.00 : 12.00, // Reduce points on mobile
-                maxDistance: 22.00,
-                spacing: 18.00,
-                showDots: false,
-                backgroundAlpha: 1.00
-            });
-        } else {
-            // Fallback for low-end/mobile devices
-            document.body.classList.remove('bg-gray-950');
-            document.body.classList.add('bg-gray-900'); // Use a solid, dark background
-        }
+        // Vanta.js Background with Mobile Optimization
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x216983,
+            backgroundColor: 0x000000,
+            points: window.innerWidth < 640 ? 8.00 : 12.00, // Reduce points on mobile
+            maxDistance: 22.00,
+            spacing: 18.00,
+            showDots: false,
+            backgroundAlpha: 1.00
+        });
 
         // ============================
         // MODAL FUNCTIONS
@@ -821,8 +798,6 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
             if (event.target === resumeModal) {
                 closeResumeModal();
             }
-            // FIX: Clicking "View Resume" in offer modal closes both modals.
-            // The event.target check for offerModal is fine, but the button inside needed stopPropagation().
             if (event.target === offerModal) {
                 closeOfferModal();
             }
@@ -921,9 +896,9 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
         // Slider Navigation Dots and Touch Swipe
         const slider = document.querySelector('#photo-slider .animate-slide');
         const dots = document.querySelectorAll('.dot');
-        const numSlides = 5; // FIX: Slider Duplicates Images (Infinite Loop Bug) - Set to 5, the original number of unique slides
-        // RESTORED: Calculation to match 80vw width + 16px margin on mobile
-        const getSlideWidth = () => window.innerWidth < 640 ? window.innerWidth * 0.80 + 16 : 360 + 24; 
+        const numSlides = 5;
+        // Dynamic slide width function adjusted for correct mobile movement calculation (85vw + 5vw margin)
+        const getSlideWidth = () => window.innerWidth < 640 ? (window.innerWidth * 0.85) + (window.innerWidth * 0.05) : 360 + 24; 
         let currentSlide = 0;
         let touchStartX = 0;
         let touchEndX = 0;
@@ -932,7 +907,6 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
             dot.addEventListener('click', () => {
                 currentSlide = index;
                 const slideWidth = getSlideWidth();
-                // Ensure the transform uses the correct number of slides, excluding clones
                 slider.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
                 dots.forEach(d => d.classList.remove('active'));
                 dot.classList.add('active');
@@ -943,13 +917,10 @@ border-cyan-500 shadow-xl transform hover:scale-105 transition duration-500"
             });
         });
 
-        // FIX: Slider Duplicates Images (Infinite Loop Bug) - Updated animation logic
         slider.addEventListener('animationiteration', () => {
             currentSlide = (currentSlide + 1) % numSlides;
             dots.forEach(d => d.classList.remove('active'));
-            if(currentSlide < numSlides) {
-                dots[currentSlide].classList.add('active');
-            }
+            dots[currentSlide].classList.add('active');
         });
 
         // Touch Swipe Support
