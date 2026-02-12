@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>JARVIS Workshop - MK VIII</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; font-family: 'Share Tech Mono', monospace; color: #00ffff; }
+        #manual { position: absolute; top: 20px; left: 20px; z-index: 100; background: rgba(0, 255, 255, 0.1); padding: 15px; border-left: 4px solid #00ffff; pointer-events: none; font-size: 12px; }
+        video { position: absolute; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); opacity: 0.15; }
+        #canvas-3d { position: absolute; width: 100%; height: 100%; z-index: 10; }
+        .hud-tag { color: #fff; background: rgba(0, 255, 255, 0.3); padding: 2px 5px; }
+    </style>
+</head>
+<body>
+    <div id="manual">
+        <div style="font-size: 16px; margin-bottom: 10px;">COMMAND DECK - JARVIS v8.0</div>
+        • PINCH: Grab & Move Object<br>
+        • OPEN PALM: Tracking Mode<br>
+        • FIST: Reset Workspace<br>
+        <div id="voice-status" style="margin-top:10px; color: yellow;">[ VOICE SYSTEM READY ]</div>
+    </div>
+    <video id="input_video" playsinline></video>
+    <div id="canvas-3d"></div>
+
+<script>
+    // --- JARVIS VOICE ENGINE ---
+    function jarvisSay(text) {
+        const msg = new SpeechSynthesisUtterance(text);
+        msg.rate = 1.0; msg.pitch = 0.9;
+        window.speechSynthesis.speak(msg);
+    }
+
+    // --- 3D SCENE ---
+    const scene = new THREE.Scene();
+    const camera3d = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('canvas-3d').appendChild(renderer.domElement);
+
+    const geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+    camera3d.position.z = 5;
+
+    // --- TRACKING STATE ---
+    let isGrabbed = false;
+    let welcomeSpoken = false;
+
+    function onResults(results) {
+        if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+            if(!welcomeSpoken) { jarvisSay("Neural link established. Welcome back, Mubeen."); welcomeSpoken = true; }
+            
+            const hand = results.multiHandLandmarks[0];
+            const index = hand[8];
+            const thumb = hand[4];
+            
+            // Move block to finger position
+            const tx = (index.x - 0.5) * -12;
+            const ty = (index.y - 0.5) * -8;
+            
+            const dist = Math.hypot(index.x - thumb.x, index.y - thumb.y);
+
+            if (dist < 0.05) { // PINCH GESTURE
+                if (!isGrabbed) { jarvisSay("Object secured."); isGrabbed = true; }
+                cube.position.x = tx;
+                cube.position.y = ty;
+                cube.rotation.y += 0.1;
+                cube.material.color.setHex(0xffffff);
+            } else {
+                if (isGrabbed) { jarvisSay("Object released."); isGrabbed = false; }
+                cube.material.color.setHex(0x00ffff);
+            }
+        }
+        renderer.render(scene, camera3d);
+    }
+
+    const hands = new Hands({locateFile: (f) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${f}`});
+    hands.setOptions({ maxNumHands: 1, modelComplexity: 1, minDetectionConfidence: 0.7 });
+    hands.onResults(onResults);
+
+    new Camera(document.getElementById('input_video'), {
+        onFrame: async () => { await hands.send({image: document.getElementById('input_video')}); },
+        width: 1280, height: 720
+    }).start();
+</script>
+</body>
+</html>
