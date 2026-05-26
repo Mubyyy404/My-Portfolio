@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Mohamed Mubeen | Cybersecurity Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: { black: '#020617', dark: '#0f172a', blue: '#38bdf8', neon: '#00f2ff', green: '#4ade80' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        :root{--blue:#38bdf8;--blue-dim:rgba(56,189,248,.12);--blue-border:rgba(56,189,248,.15);--dark:#0f172a;--black:#020617;--green:#4ade80;--gold:#fbbf24;--gold2:#f59e0b}
+        html{scroll-behavior:smooth}
+        body{background-color:var(--black);color:#f8fafc;font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-text-size-adjust:100%}
+        ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:4px}
+        .mono{font-family:'JetBrains Mono',monospace}.syne{font-family:'Rajdhani',sans-serif}
+        body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(56,189,248,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+        .glass{background:rgba(15,23,42,.6);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--blue-border)}
+
+        #cursor-glow{width:480px;height:480px;background:radial-gradient(circle,rgba(56,189,248,.11) 0%,rgba(56,189,248,.05) 35%,transparent 68%);position:fixed;pointer-events:none;z-index:0;transform:translate(-50%,-50%);will-change:left,top}
+        @media(max-width:768px){#cursor-glow{display:none}}
+
+        .typewriter::after{content:'|';animation:blink .9s step-end infinite;color:var(--blue);margin-left:2px}
+        @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+        /* ═══ ENHANCED SECTION LABELS ═══ */
+        .sec-label{
+            font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.28em;
+            text-transform:uppercase;color:var(--blue);display:flex;align-items:center;gap:10px;margin-bottom:10px;
+        }
+        .sec-label::before{content:'[';color:rgba(56,189,248,.4);margin-right:-6px}
+        .sec-label::after{content:'';height:1px;flex:1;max-width:120px;background:linear-gradient(to right,rgba(56,189,248,.6),rgba(0,242,255,.2),transparent)}
+
+        /* ═══ GLITCH SECTION TITLE ═══ */
+        .sec-title{
+            font-family:'Rajdhani',sans-serif;
+            font-weight:700;
+            text-transform:uppercase;
+            letter-spacing:.06em;
+            line-height:1.05;
+            color:#f1f5f9;
+            position:relative;
+            display:inline-block;
+        }
+        .sec-title::before{
+            content:attr(data-text);
+            position:absolute;
+            top:0;left:-2px;
+            color:#f1f5f9;
+            clip-path:polygon(0 20%,100% 20%,100% 40%,0 40%);
+            opacity:0;
+            animation:glitchReveal 6s ease-in-out infinite;
+            text-shadow:-2px 0 var(--blue);
+        }
+        @keyframes glitchReveal{
+            0%,85%,100%{opacity:0;transform:none}
+            87%{opacity:.7;transform:translate(-3px,0)}
+            89%{opacity:.5;transform:translate(2px,0)}
+            91%,93%{opacity:0;transform:none}
+            95%{opacity:.6;transform:translate(-2px,1px)}
+            97%{opacity:0;transform:none}
+        }
+        .sec-title .accent{
+            color:var(--blue);
+            position:relative;
+            filter:drop-shadow(0 0 12px rgba(56,189,248,.35));
+        }
+        .sec-title .accent::after{
+            content:'';
+            position:absolute;
+            bottom:-3px;left:0;right:0;
+            height:2px;
+            background:linear-gradient(90deg,var(--blue),#00f2ff,rgba(129,140,248,.6),transparent);
+            border-radius:2px;
+            animation:accentPulse 3s ease-in-out infinite;
+        }
+        @keyframes accentPulse{0%,100%{opacity:.7;width:100%}50%{opacity:1;width:105%}}
+        .sec-bar{
+            margin-top:16px;height:2px;width:64px;
+            background:linear-gradient(90deg,var(--blue),#00f2ff,rgba(129,140,248,.4),transparent);
+            border-radius:4px;
+            position:relative;
+            overflow:hidden;
+        }
+        .sec-bar::after{
+            content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+            background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
+            animation:barSheen 3s ease-in-out infinite 1s;
+        }
+        @keyframes barSheen{0%{left:-100%}100%{left:200%}}
+
+        .sec-label-r{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--blue);display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:10px}
+        .sec-label-r::after{content:']';color:rgba(56,189,248,.4);margin-left:-6px}
+        .sec-label-r::before{content:'';height:1px;max-width:120px;flex:1;background:linear-gradient(to left,rgba(56,189,248,.6),rgba(0,242,255,.2),transparent)}
+        .sec-bar-r{margin-top:16px;height:2px;width:64px;background:linear-gradient(90deg,transparent,rgba(129,140,248,.4),#00f2ff,var(--blue));border-radius:4px;margin-left:auto;overflow:hidden;position:relative}
+        .sec-bar-r::after{content:'';position:absolute;top:0;right:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);animation:barSheenR 3s ease-in-out infinite 1s}
+        @keyframes barSheenR{0%{right:-100%}100%{right:200%}}
+
+        /* ═══ HERO NAME — enhanced ═══ */
+        .hero-h1{
+            font-family:'Rajdhani',sans-serif;
+            font-weight:700;
+            text-transform:uppercase;
+            letter-spacing:.04em;
+            line-height:1.08;
+            color:#f8fafc;
+            font-size:clamp(2.2rem,5.5vw,4.8rem);
+            white-space:nowrap;
+        }
+        @media(max-width:600px){.hero-h1{font-size:clamp(1.6rem,8.5vw,2.4rem);white-space:normal;}}
+        .hero-h1 .hi-text{
+            display:inline-block;
+            font-family:'JetBrains Mono',monospace;
+            font-size:clamp(.85rem,2.2vw,1.4rem);
+            font-weight:400;
+            letter-spacing:.18em;
+            text-transform:uppercase;
+            color:transparent;
+            background:linear-gradient(90deg,#475569,#94a3b8,#64748b);
+            -webkit-background-clip:text;
+            background-clip:text;
+            margin-right:.4rem;
+            position:relative;
+            vertical-align:middle;
+        }
+        .hero-h1 .hi-text::before{
+            content:'>';
+            color:var(--blue);
+            opacity:.5;
+            margin-right:.3rem;
+            font-size:.9em;
+            animation:cursorBlink 1.2s step-end infinite;
+        }
+        @keyframes cursorBlink{0%,100%{opacity:.5}50%{opacity:0}}
+        .hero-h1 .name-gradient{
+            background:linear-gradient(135deg,#38bdf8 0%,#00f2ff 30%,#a5f3fc 55%,#818cf8 75%,#38bdf8 100%);
+            background-size:200% 200%;
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+            animation:nameShimmer 4s ease infinite;
+            filter:drop-shadow(0 0 24px rgba(56,189,248,.4));
+            position:relative;
+        }
+        @keyframes nameShimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+        .neon-btn{background:linear-gradient(45deg,#06B6D4,#22D3EE);transition:box-shadow .3s ease,transform .25s ease,filter .3s ease;display:inline-flex;align-items:center;justify-content:center;font-weight:700;cursor:pointer;border:none;text-decoration:none;color:#000;-webkit-tap-highlight-color:transparent;touch-action:manipulation;position:relative;overflow:hidden}
+        .neon-btn:hover{box-shadow:0 0 30px rgba(6,182,212,.7),0 0 60px rgba(6,182,212,.25);transform:translateY(-2px) scale(1.04);filter:brightness(1.1)}
+        .neon-btn:active{transform:scale(.97)}
+        .neon-btn::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--x,50%) var(--y,50%),rgba(255,255,255,.3) 0%,transparent 60%);opacity:0;transition:opacity .4s}
+        .neon-btn:hover::after{opacity:1}
+
+        .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:200;justify-content:center;align-items:center;padding:1rem;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+        .modal.open{display:flex;animation:modalIn .35s cubic-bezier(.34,1.56,.64,1)}
+        @keyframes modalIn{from{opacity:0;transform:scale(.88) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+        .modal-box{background:var(--dark);border:1px solid rgba(56,189,248,.3);border-radius:1.25rem;padding:2rem;max-width:700px;width:100%;position:relative;max-height:90vh;overflow-y:auto}
+        .modal-box iframe{width:100%;height:65vh;border:none;border-radius:.75rem}
+        .modal-close{position:absolute;top:1rem;right:1rem;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#9ca3af;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;line-height:1;transition:all .2s ease;z-index:10;}
+        .modal-close:hover{background:rgba(56,189,248,.15);border-color:rgba(56,189,248,.4);color:var(--blue);transform:rotate(90deg)}
+        @media(max-width:640px){.modal{padding:.75rem;align-items:flex-end}.modal-box{border-radius:1.5rem 1.5rem .75rem .75rem;max-height:88vh}.modal-box iframe{height:50vh}}
+
+        /* ═══ CEH GOLDEN ANIMATION ═══ */
+        .ceh-badge{
+            position:relative;
+            display:inline-flex;
+            align-items:center;
+            gap:.6rem;
+            padding:.55rem 1.1rem .55rem .85rem;
+            border-radius:999px;
+            border:1.5px solid rgba(251,191,36,.45);
+            background:rgba(251,191,36,.06);
+            overflow:hidden;
+            cursor:default;
+        }
+        .ceh-badge-text{
+            font-family:'JetBrains Mono',monospace;
+            font-size:.65rem;
+            font-weight:700;
+            letter-spacing:.18em;
+            text-transform:uppercase;
+            position:relative;
+            z-index:2;
+            background:linear-gradient(90deg,#fbbf24,#fde68a,#f59e0b,#fef3c7,#fbbf24,#f59e0b,#fde68a,#fbbf24);
+            background-size:300% 100%;
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+            animation:goldShimmer 2.8s linear infinite;
+            white-space:nowrap;
+        }
+        @keyframes goldShimmer{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+        .ceh-badge::before{
+            content:'';position:absolute;inset:0;border-radius:999px;
+            background:linear-gradient(90deg,transparent 0%,rgba(251,191,36,.18) 40%,rgba(254,243,199,.35) 50%,rgba(251,191,36,.18) 60%,transparent 100%);
+            background-size:200% 100%;
+            animation:goldSweep 2.2s ease-in-out infinite;
+            z-index:1;
+        }
+        @keyframes goldSweep{0%{background-position:200% 0}100%{background-position:-200% 0}}
+        .ceh-badge::after{
+            content:'';position:absolute;inset:-1px;border-radius:999px;
+            background:linear-gradient(90deg,transparent,rgba(251,191,36,.6),rgba(254,243,199,.9),rgba(251,191,36,.6),transparent);
+            background-size:200% 100%;
+            animation:goldBorderGlow 2.2s ease-in-out infinite;
+            z-index:0;
+            -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+            mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+            -webkit-mask-composite:xor;
+            mask-composite:exclude;
+            padding:1.5px;
+        }
+        @keyframes goldBorderGlow{0%{background-position:200% 0}100%{background-position:-200% 0}}
+        .ceh-sparkles{position:absolute;inset:0;pointer-events:none;z-index:3;overflow:hidden;border-radius:999px}
+        .ceh-sparkle{
+            position:absolute;width:3px;height:3px;border-radius:50%;
+            background:radial-gradient(circle,#fff9 0%,#fbbf24 60%,transparent 100%);
+            animation:sparkle-drift var(--dur,2.4s) ease-in-out var(--delay,0s) infinite;
+        }
+        @keyframes sparkle-drift{
+            0%{transform:translate(var(--sx,0px),var(--sy,10px)) scale(0);opacity:0}
+            20%{opacity:1;transform:translate(calc(var(--sx,0px) * .4),calc(var(--sy,10px)*.3)) scale(1.4)}
+            70%{opacity:.7}
+            100%{transform:translate(var(--ex,20px),var(--ey,-15px)) scale(0);opacity:0}
+        }
+        .ceh-icon{font-size:.9rem;z-index:4;position:relative;filter:drop-shadow(0 0 6px #fbbf24);animation:iconPulse 1.8s ease-in-out infinite}
+        @keyframes iconPulse{0%,100%{filter:drop-shadow(0 0 4px #fbbf24)}50%{filter:drop-shadow(0 0 14px #fef08a) drop-shadow(0 0 4px #f59e0b)}}
+
+        /* ═══ REAL KALI LINUX TERMINAL ═══ */
+        .terminal-card{width:100%}
+        .terminal-window{
+            background:#0d0d0d;
+            border:1px solid #1a1a2e;
+            border-radius:.75rem;
+            overflow:hidden;
+            box-shadow:0 0 0 1px rgba(0,0,0,.8),0 25px 80px rgba(0,0,0,.9),0 0 40px rgba(56,189,248,.05);
+            position:relative;
+        }
+        .terminal-titlebar{
+            background:linear-gradient(180deg,#2d2d2d 0%,#222 100%);
+            border-bottom:1px solid #111;
+            padding:.5rem .9rem;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            position:relative;
+        }
+        .term-dots{display:flex;gap:.4rem;align-items:center}
+        .term-dot{width:12px;height:12px;border-radius:50%;position:relative;cursor:pointer}
+        .term-dot::after{content:'';position:absolute;inset:2px;border-radius:50%;background:rgba(0,0,0,.2)}
+        .term-dot-r{background:#ff5f57;box-shadow:0 0 0 1px rgba(255,95,87,.4)}
+        .term-dot-y{background:#ffbd2e;box-shadow:0 0 0 1px rgba(255,189,46,.4)}
+        .term-dot-g{background:#28c840;box-shadow:0 0 0 1px rgba(40,200,64,.4)}
+        .terminal-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:#aaa;font-weight:400;letter-spacing:.05em;position:absolute;left:50%;transform:translateX(-50%)}
+        .terminal-body{
+            padding:1rem 1.2rem;
+            font-family:'JetBrains Mono',monospace;
+            font-size:.72rem;
+            line-height:1.75;
+            min-height:280px;
+            max-height:360px;
+            overflow-y:auto;
+            background:#0d0d0d;
+        }
+        @media(max-width:480px){.terminal-body{font-size:.63rem;min-height:220px;max-height:300px;padding:.75rem .85rem}}
+        .terminal-body::-webkit-scrollbar{width:3px}.terminal-body::-webkit-scrollbar-track{background:transparent}.terminal-body::-webkit-scrollbar-thumb{background:#333}
+        /* Authentic Kali prompt: ┌──(mubyyy㉿kali)-[~] └─$ */
+        .term-prompt-root{color:#e53e3e}
+        .term-prompt-bracket{color:#a0aec0}
+        .term-prompt-user{color:#63b3ed;font-weight:700}
+        .term-prompt-at{color:#a0aec0}
+        .term-prompt-host{color:#68d391;font-weight:700}
+        .term-prompt-dir{color:#63b3ed}
+        .term-prompt-dollar{color:#a0aec0}
+        .term-cmd{color:#f8fafc}
+        .term-out{color:#c0c0c0;margin-left:.2rem;display:block}
+        .term-blue{color:#63b3ed}
+        .term-green{color:#68d391}
+        .term-yellow{color:#f6e05e}
+        .term-red{color:#fc8181}
+        .term-purple{color:#b794f4}
+        .term-cyan{color:#76e4f7}
+        .term-white{color:#f8fafc}
+        .term-dim{color:#4a5568}
+        .term-cursor{display:inline-block;width:7px;height:13px;background:#f8fafc;margin-left:2px;vertical-align:middle;animation:blink 1s step-end infinite;opacity:.85}
+        .terminal-input-row{
+            border-top:1px solid #1a1a1a;
+            padding:.5rem 1.2rem;
+            display:flex;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:.3rem;
+            background:#0a0a0a;
+        }
+        .kali-prompt-line{display:flex;align-items:center;gap:0;flex-wrap:nowrap;font-family:'JetBrains Mono',monospace;font-size:.72rem;white-space:nowrap}
+        @media(max-width:480px){.kali-prompt-line{font-size:.63rem}}
+        .terminal-input{
+            flex:1;
+            min-width:60px;
+            background:transparent;
+            border:none;
+            outline:none;
+            color:#f8fafc;
+            font-family:'JetBrains Mono',monospace;
+            font-size:.72rem;
+            caret-color:#f8fafc;
+        }
+        @media(max-width:480px){.terminal-input{font-size:.63rem}}
+        .term-hint{font-family:'JetBrains Mono',monospace;font-size:8px;color:#2d3748;padding:.3rem 1.2rem .5rem;background:#0a0a0a;border-top:1px solid #111}
+
+        .nav-link{position:relative;transition:color .2s}
+        .nav-link::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:linear-gradient(90deg,var(--blue),#00f2ff);border-radius:2px;transition:width .3s ease}
+        .nav-link:hover::after,.nav-link.active-link::after{width:100%}
+        .nav-link:hover,.nav-link.active-link{color:var(--blue)}
+
+        .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;min-width:44px;min-height:44px;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+        .hamburger span{display:block;width:24px;height:2px;background:var(--blue);border-radius:4px;transition:transform .3s ease,opacity .3s ease,width .3s ease;transform-origin:center}
+        .hamburger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+        .hamburger.active span:nth-child(2){opacity:0;width:0}
+        .hamburger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+        @media(max-width:767px){.desktop-nav{display:none !important}.hamburger{display:flex}}
+
+        #mobile-menu{overflow:hidden;max-height:0;opacity:0;transition:max-height .4s cubic-bezier(.4,0,.2,1),opacity .3s ease;display:flex;flex-direction:column}
+        #mobile-menu.active{max-height:500px;opacity:1}
+        #mobile-menu a{min-height:48px;display:flex;align-items:center;-webkit-tap-highlight-color:transparent}
+
+        .social-github{color:#6e7681}.social-github:hover{color:#fff;background:#24292e !important}
+        .social-linkedin{color:#0a66c2}.social-linkedin:hover{color:#fff;background:#0a66c2 !important}
+        .social-instagram:hover{color:#fff !important}
+        .social-instagram-wrap:hover{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285AEB 90%) !important}
+
+        .skill-badge{transition:box-shadow .3s ease,border-color .3s ease,transform .25s ease,background .3s ease;cursor:default}
+        .skill-badge:hover{box-shadow:0 0 20px rgba(56,189,248,.4);border-color:var(--blue) !important;transform:translateY(-3px);background:rgba(56,189,248,.08) !important}
+
+        .timeline-line{position:relative}
+        .timeline-line::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--blue) 60%,transparent)}
+        .tl-dot{position:absolute;left:-38px;top:1.4rem;width:1rem;height:1rem;border-radius:50%;border:3px solid var(--black);flex-shrink:0}
+        .tl-dot-blue{background:var(--blue);box-shadow:0 0 12px var(--blue)}
+        .tl-dot-green{background:var(--green);box-shadow:0 0 12px var(--green)}
+
+        .card-hover{transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease}
+        .card-hover:hover{border-color:rgba(56,189,248,.5) !important;transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.4),0 0 20px rgba(56,189,248,.08)}
+        .cred-item{transition:all .25s ease;border-left:3px solid transparent;border-radius:.5rem}
+        .cred-item:hover{background:rgba(56,189,248,.06);border-left-color:var(--blue);transform:translateX(5px)}
+
+        .contact-input{width:100%;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.07);padding:.9rem 1rem;border-radius:.75rem;outline:none;font-size:16px;color:#f8fafc;font-family:'Inter',sans-serif;transition:border-color .25s ease,box-shadow .25s ease,background .25s ease;-webkit-appearance:none;appearance:none;display:block}
+        .contact-input::placeholder{color:#374151}
+        .contact-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(56,189,248,.1);background:rgba(56,189,248,.04)}
+
+        .slider-wrapper{overflow:hidden;width:100%;mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent)}
+        .slider-track{display:flex;width:max-content;animation:scrollLeft 45s linear infinite}
+        .slider-track:hover{animation-play-state:paused}
+        @keyframes scrollLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+        .photo-card{flex:0 0 280px;width:280px;margin-right:18px;transition:transform .35s ease,box-shadow .35s ease;cursor:pointer}
+        .photo-card:hover{transform:scale(1.04) translateY(-4px);box-shadow:0 20px 40px rgba(56,189,248,.15)}
+        .photo-card .photo-img-wrap{overflow:hidden}
+        .photo-card .photo-img-wrap img{transition:transform .4s ease}
+        .photo-card:hover .photo-img-wrap img{transform:scale(1.06)}
+        @media(max-width:480px){.photo-card{flex:0 0 220px;width:220px;margin-right:12px}.slider-wrapper{mask-image:none;-webkit-mask-image:none}}
+
+        .cert-extra{display:none}
+        .cert-extra.show{display:block}
+
+        .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+        .reveal.visible{opacity:1;transform:translateY(0)}
+        .reveal-left{opacity:0;transform:translateX(-24px);transition:opacity .7s ease,transform .7s ease}
+        .reveal-left.visible{opacity:1;transform:translateX(0)}
+        .reveal-right{opacity:0;transform:translateX(24px);transition:opacity .7s ease,transform .7s ease}
+        .reveal-right.visible{opacity:1;transform:translateX(0)}
+        .delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}
+
+        .particle-field{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+        .particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(56,189,248,.5);animation:drift linear infinite}
+        @keyframes drift{0%{transform:translateY(100vh) translateX(0);opacity:0}10%{opacity:1}90%{opacity:.5}100%{transform:translateY(-10vh) translateX(var(--drift));opacity:0}}
+
+        nav.scrolled .nav-inner{background:rgba(2,6,23,.92) !important;border-color:rgba(56,189,248,.25) !important;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+
+        .stat-card{position:relative;overflow:hidden}
+        .stat-card::before{content:'';position:absolute;inset:0;border-radius:1rem;background:radial-gradient(circle at center,rgba(56,189,248,.06) 0%,transparent 70%);opacity:0;transition:opacity .4s ease}
+        .stat-card:hover::before{opacity:1}
+        .stat-card:hover .stat-num{text-shadow:0 0 20px rgba(56,189,248,.8)}
+        .stat-num{transition:text-shadow .4s ease}
+
+        .section-py{padding-top:clamp(3rem,8vw,6rem);padding-bottom:clamp(3rem,8vw,6rem)}
+        .section-px{padding-left:clamp(1rem,4vw,2rem);padding-right:clamp(1rem,4vw,2rem)}
+
+        .orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;animation:orb-float ease-in-out infinite}
+        .orb-1{width:clamp(200px,40vw,500px);height:clamp(200px,40vw,500px);background:radial-gradient(circle,rgba(56,189,248,.08) 0%,transparent 70%);top:-10%;right:-5%;animation-duration:12s}
+        .orb-2{width:clamp(150px,30vw,400px);height:clamp(150px,30vw,400px);background:radial-gradient(circle,rgba(0,242,255,.06) 0%,transparent 70%);bottom:20%;left:-5%;animation-duration:16s;animation-delay:-4s}
+        @keyframes orb-float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(20px,-15px) scale(1.03)}66%{transform:translate(-10px,10px) scale(.98)}}
+
+        .honor-card{transition:transform .3s ease,box-shadow .3s ease}
+        .honor-card:hover{transform:translateX(6px);box-shadow:-4px 0 20px rgba(56,189,248,.1)}
+
+        @keyframes float-badge{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+        .float-badge{animation:float-badge 3s ease-in-out infinite}
+
+        #photo-lightbox{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);justify-content:center;align-items:center;padding:1rem}
+        #photo-lightbox.open{display:flex;animation:lbIn .25s cubic-bezier(.4,0,.2,1)}
+        @keyframes lbIn{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+        #photo-lightbox .lb-inner{position:relative;max-width:min(92vw,860px);width:100%;display:flex;flex-direction:column;align-items:center;gap:1rem}
+        #photo-lightbox img{width:100%;max-height:75vh;object-fit:contain;border-radius:1rem;border:1px solid rgba(56,189,248,.25);box-shadow:0 0 60px rgba(56,189,248,.12)}
+        #photo-lightbox .lb-caption{text-align:center;padding:0 .5rem}
+        #photo-lightbox .lb-title{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:.3rem}
+        #photo-lightbox .lb-desc{color:#9ca3af;font-size:.75rem;line-height:1.6}
+        #photo-lightbox .lb-close{position:absolute;top:-2.5rem;right:0;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.25);color:#fff;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:background .2s,transform .2s;-webkit-tap-highlight-color:transparent}
+        #photo-lightbox .lb-close:hover{background:rgba(56,189,248,.3);transform:scale(1.1)}
+        #photo-lightbox .lb-nav{display:flex;gap:.75rem;margin-top:.25rem}
+        #photo-lightbox .lb-btn{background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);color:var(--blue);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;transition:background .2s,transform .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+        #photo-lightbox .lb-btn:hover{background:rgba(56,189,248,.25);transform:scale(1.08)}
+        #photo-lightbox .lb-counter{font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#6b7280;letter-spacing:.15em;align-self:center}
+
+        /* Hero grid */
+        .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;width:100%}
+        .hero-left{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+        .sec-title{font-size:clamp(2rem,7vw,4rem)}
+
+        @media(max-width:767px){
+            .hero-grid{grid-template-columns:1fr !important;gap:2rem !important}
+            .hero-left{align-items:center !important;text-align:center !important}
+            .hero-left .flex{justify-content:center !important}
+            .hero-left p{text-align:center !important}
+            .hero-badges{justify-content:center !important}
+            .hero-btn-row{justify-content:center !important;gap:.875rem !important}
+            .sec-title{font-size:clamp(1.75rem,8.5vw,2.5rem) !important}
+            .timeline-line{padding-left:2rem !important}
+            .tl-dot{left:-26px !important;top:1.1rem !important;width:.8rem !important;height:.8rem !important}
+            .certs-grid{grid-template-columns:1fr !important}
+            .contact-grid{grid-template-columns:1fr !important}
+            .footer-row{flex-direction:column !important;align-items:center !important;text-align:center !important;gap:.85rem !important}
+            .about-stats{display:grid !important;grid-template-columns:repeat(3,1fr) !important;gap:.5rem !important;flex-direction:unset !important}
+            .about-stats .stat-num{font-size:1.6rem !important}
+            .card-hover:hover{transform:none !important;box-shadow:none !important}
+            .skill-badge:hover{transform:none !important;box-shadow:none !important}
+            .cred-item:hover{transform:none !important}
+            .honor-card:hover{transform:none !important}
+            .neon-btn:hover{transform:none !important}
+        }
+        @media(max-width:500px){
+            .hero-btn-row{flex-direction:column !important;align-items:center !important;gap:1rem !important}
+            .hero-btn-row .neon-btn{width:100% !important;max-width:290px !important;justify-content:center !important}
+            .hero-btn-row .social-row{justify-content:center !important}
+        }
+        @media(max-width:380px){
+            .about-stats .stat-num{font-size:1.3rem !important}
+        }
+
+        /* ═══ CEH TOP CERT HIGHLIGHT (certs section) ═══ */
+        .ceh-cert-row{
+            position:relative;
+            overflow:hidden;
+            border-radius:.6rem;
+            background:linear-gradient(90deg,rgba(251,191,36,.07),rgba(251,191,36,.03));
+            border:1px solid rgba(251,191,36,.25);
+            margin-bottom:.5rem;
+        }
+        .ceh-cert-row::before{
+            content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
+            background:linear-gradient(90deg,transparent,rgba(251,191,36,.2),transparent);
+            animation:certSweep 3.5s ease-in-out infinite;
+        }
+        @keyframes certSweep{0%{left:-100%}100%{left:200%}}
+        .ceh-cert-row a{position:relative;z-index:1}
+        .ceh-cert-icon{
+            background:linear-gradient(90deg,#fbbf24,#fde68a,#f59e0b,#fef3c7,#fbbf24);
+            background-size:300% 100%;
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+            animation:goldShimmer 2.5s linear infinite;
+        }
+    </style>
+</head>
+<body>
+<div id="cursor-glow"></div>
+<div class="particle-field" id="particles"></div>
+
+<!-- RESUME MODAL -->
+<div id="resume-modal" class="modal">
+    <div class="modal-box resume-box">
+        <button onclick="closeModal('resume-modal')" class="modal-close" aria-label="Close">&#x2715;</button>
+        <iframe src="https://drive.google.com/file/d/1NPRQ0v0mLQS4lhBc4lJFCf9yl3Y4MZOK/preview" title="Resume"></iframe>
+    </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="photo-lightbox">
+    <div class="lb-inner">
+        <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&#x2715;</button>
+        <img id="lb-img" src="" alt=""/>
+        <div class="lb-caption">
+            <div class="lb-title" id="lb-title"></div>
+            <div class="lb-desc" id="lb-desc"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem">
+            <button class="lb-btn" onclick="lbNav(-1)" aria-label="Previous">&#8249;</button>
+            <span class="lb-counter" id="lb-counter"></span>
+            <button class="lb-btn" onclick="lbNav(1)" aria-label="Next">&#8250;</button>
+        </div>
+    </div>
+</div>
+
+<!-- NAV -->
+<nav class="fixed w-full z-50 px-2 py-2 sm:px-3 sm:py-3 md:px-6 md:py-4 transition-all duration-300" id="main-nav">
+    <div class="max-w-7xl mx-auto flex justify-between items-center glass nav-inner rounded-2xl px-4 py-2.5 md:px-6 md:py-3 transition-all duration-300">
+        <a href="#" class="text-sm sm:text-base md:text-lg font-bold mono tracking-tighter text-cyber-blue">
+            &lt;Mubeen.Sec/&gt;
+        </a>
+        <div class="desktop-nav hidden md:flex items-center space-x-6 text-[10px] font-bold uppercase tracking-widest">
+            <a href="#about"      class="nav-link hover:text-cyber-blue transition">About</a>
+            <a href="#skills"     class="nav-link hover:text-cyber-blue transition">Arsenal</a>
+            <a href="#experience" class="nav-link hover:text-cyber-blue transition">Experience</a>
+            <a href="#projects"   class="nav-link hover:text-cyber-blue transition">Projects</a>
+            <a href="#certs"      class="nav-link hover:text-cyber-blue transition">Certs</a>
+            <a href="#photos"     class="nav-link hover:text-cyber-blue transition">Moments</a>
+            <a href="#contact" class="bg-cyber-blue text-black px-4 py-2 rounded-lg font-bold hover:bg-white hover:scale-105 transition-all duration-200 shadow-lg shadow-cyber-blue/20">Connect</a>
+        </div>
+        <div class="hamburger md:hidden" id="hamburger-btn" aria-label="Toggle menu" role="button">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+    <div id="mobile-menu" class="glass mx-2 mt-1.5 rounded-2xl px-4 py-2 text-[11px] font-bold uppercase tracking-widest">
+        <a href="#about"      class="py-3 hover:text-cyber-blue transition border-b border-white/5" onclick="closeMobileMenu()">About</a>
+        <a href="#skills"     class="py-3 hover:text-cyber-blue transition border-b border-white/5" onclick="closeMobileMenu()">Arsenal</a>
+        <a href="#experience" class="py-3 hover:text-cyber-blue transition border-b border-white/5" onclick="closeMobileMenu()">Experience</a>
+        <a href="#projects"   class="py-3 hover:text-cyber-blue transition border-b border-white/5" onclick="closeMobileMenu()">Projects</a>
+        <a href="#certs"      class="py-3 hover:text-cyber-blue transition border-b border-white/5" onclick="closeMobileMenu()">Certs</a>
+        <a href="#photos"     class="py-3 hover:text-cyber-blue transition border-b border-white/5" onclick="closeMobileMenu()">Moments</a>
+        <a href="#contact"    class="py-3 text-cyber-blue font-extrabold" onclick="closeMobileMenu()">&#8594; Connect</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center section-px pt-28 sm:pt-32 pb-16 relative z-10 overflow-hidden">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="w-full max-w-6xl mx-auto">
+        <div class="hero-grid">
+
+            <!-- LEFT COLUMN -->
+            <div class="hero-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyber-blue/10 border border-cyber-blue/25 text-cyber-blue text-[9px] sm:text-[10px] font-bold mb-4 tracking-widest uppercase mono float-badge hero-badges">
+                    <span class="w-1.5 h-1.5 rounded-full bg-cyber-blue animate-pulse"></span>
+                    PRO Chairman — HackQuest 2K25
+                </div>
+
+                <h1 class="hero-h1 mb-4 reveal">
+                    <span class="hi-text">I'm </span><span class="name-gradient">Mohamed Mubeen</span>
+                </h1>
+
+                <div class="text-base sm:text-lg font-bold mb-5 mono text-gray-300 min-h-[1.8rem] flex items-center gap-1 reveal delay-1">
+                    <span class="text-cyber-blue opacity-60">&gt;</span>&nbsp;<span id="typer" class="typewriter text-cyber-blue"></span>
+                </div>
+
+                <p class="text-gray-400 text-sm sm:text-base mb-8 max-w-lg leading-relaxed reveal delay-2">
+                    Passionate Cybersecurity student specializing in Web Application Penetration Testing &amp; network security. Actively seeking full-time roles in offensive security.
+                </p>
+
+                <div class="flex flex-row flex-wrap items-center gap-3 mb-8 reveal delay-3 hero-btn-row">
+                    <button onclick="openModal('resume-modal')" class="neon-btn px-7 py-3 rounded-xl text-sm shadow-lg shadow-cyan-500/20 flex-shrink-0">
+                        <i class="fas fa-download mr-2 text-xs"></i>Download Resume
+                    </button>
+                    <div class="flex flex-row gap-2.5 items-center social-row">
+                        <a href="https://www.linkedin.com/in/mohamed-mubeen-8028b3287/" target="_blank" rel="noopener noreferrer"
+                           class="social-linkedin w-11 h-11 glass flex items-center justify-center rounded-xl transition-all duration-300 border border-white/10 text-base hover:border-blue-600">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/Mubyyy404" target="_blank" rel="noopener noreferrer"
+                           class="social-github w-11 h-11 glass flex items-center justify-center rounded-xl transition-all duration-300 border border-white/10 text-base hover:border-gray-600">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://www.instagram.com/_mubee_4u/" target="_blank" rel="noopener noreferrer"
+                           class="social-instagram-wrap w-11 h-11 glass flex items-center justify-center rounded-xl transition-all duration-300 border border-white/10 text-sm text-pink-400">
+                            <i class="fab fa-instagram social-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Interactive Kali Terminal -->
+            <div class="terminal-card reveal delay-2">
+                <div class="terminal-window">
+                    <div class="terminal-titlebar">
+                        <div class="term-dots">
+                            <div class="term-dot term-dot-r"></div>
+                            <div class="term-dot term-dot-y"></div>
+                            <div class="term-dot term-dot-g"></div>
+                        </div>
+                        <span class="terminal-label">mubyyy@kali: ~</span>
+                        <span class="mono text-[9px]" style="color:#555">bash 5.2.15</span>
+                    </div>
+                    <div class="terminal-body" id="term-output">
+                        <!-- populated by JS -->
+                    </div>
+                    <div class="terminal-input-row">
+                        <div class="kali-prompt-line">
+                            <span style="color:#68d391">┌──(</span><span style="color:#63b3ed;font-weight:700">mubyyy</span><span style="color:#fc8181">㉿</span><span style="color:#68d391;font-weight:700">kali</span><span style="color:#68d391">)-[</span><span style="color:#f8fafc">~</span><span style="color:#68d391">]</span>
+                        </div>
+                        <br style="display:block;width:100%">
+                        <div class="kali-prompt-line" style="padding-left:0">
+                            <span style="color:#68d391">└─</span><span style="color:#63b3ed;font-weight:700">$&nbsp;</span>
+                            <input class="terminal-input" id="term-input" type="text" placeholder="type a command..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                        </div>
+                    </div>
+                    <div class="term-hint">Try: whoami · nmap · hydra · sqlmap · msfconsole · netstat · help · clear</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section-py section-px bg-slate-950/40 relative z-10">
+    <div class="max-w-5xl mx-auto">
+        <div class="mb-8 reveal">
+            <div class="sec-label">// 01</div>
+            <h2 class="sec-title text-4xl sm:text-5xl">About<span class="accent">_Me</span></h2>
+            <div class="sec-bar"></div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6 items-start">
+            <div class="md:col-span-2 space-y-4 reveal">
+                <p class="text-gray-300 leading-loose text-sm sm:text-base">
+                    I'm <span class="text-white font-bold">Mohamed Mubeen</span>, a passionate Cybersecurity student driven by ethical hacking, penetration testing, and securing digital environments. I specialize as a <span class="text-cyber-blue font-semibold">Web Application Penetration Tester</span>, with hands-on experience identifying vulnerabilities using industry-standard tools like Burp Suite, Wireshark, and Metasploit.
+                </p>
+                <p class="text-gray-400 leading-loose text-sm sm:text-base">
+                    Through multiple internships and practical projects, I've gained real-world exposure to offensive and defensive cybersecurity. I served as <span class="text-cyber-blue font-semibold">PRO Chairman for HackQuest2K25</span> and am now actively seeking full-time roles on the frontlines of digital defense.
+                </p>
+            </div>
+            <div class="about-stats flex flex-col gap-3 reveal delay-2">
+                <div class="glass p-4 sm:p-5 rounded-2xl text-center border border-cyber-blue/20 stat-card card-hover">
+                    <p class="text-3xl sm:text-4xl font-extrabold text-cyber-blue mono leading-none stat-num">15+</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest mt-2">Certifications</p>
+                </div>
+                <div class="glass p-4 sm:p-5 rounded-2xl text-center border border-cyber-blue/20 stat-card card-hover">
+                    <p class="text-3xl sm:text-4xl font-extrabold text-cyber-blue mono leading-none stat-num">2+</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest mt-2">Internships</p>
+                </div>
+                <div class="glass p-4 sm:p-5 rounded-2xl text-center border border-cyber-blue/20 stat-card card-hover">
+                    <p class="text-3xl sm:text-4xl font-extrabold text-cyber-blue mono leading-none stat-num">556+</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest mt-2">CTF Teams Beaten</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section-py section-px relative z-10">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-8 reveal">
+            <div class="sec-label">// 02</div>
+            <h2 class="sec-title text-4xl sm:text-5xl">Technical<span class="accent">_Arsenal</span></h2>
+            <div class="sec-bar"></div>
+        </div>
+        <p class="text-[10px] mono text-gray-500 uppercase tracking-widest mb-3 reveal">// Security &amp; Tools</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 mb-6 reveal">
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Burp Suite</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Metasploit</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Nmap</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Wireshark</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">SQLMap</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Web Pentesting</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Vuln Assessment</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Network Security</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Threat Hunting</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Cryptography</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Security Auditing</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Log Monitoring</div>
+        </div>
+        <p class="text-[10px] mono text-gray-500 uppercase tracking-widest mb-3 reveal">// Scripting &amp; Soft Skills</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 reveal">
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest text-cyber-blue uppercase border border-cyber-blue/20">Python</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest text-cyber-blue uppercase border border-cyber-blue/20">Bash Scripting</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Public Speaking</div>
+            <div class="skill-badge glass p-3 rounded-xl text-center text-[10px] font-bold tracking-widest hover:text-cyber-blue uppercase border border-transparent">Team Leading</div>
+        </div>
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="section-py section-px bg-slate-950/40 relative z-10">
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-10 reveal">
+            <div class="sec-label">// 03</div>
+            <h2 class="sec-title text-4xl sm:text-5xl">Deployment<span class="accent">_History</span></h2>
+            <div class="sec-bar"></div>
+        </div>
+        <div class="relative timeline-line pl-8 sm:pl-12 space-y-6">
+
+            <!-- Cyber Heals — Current -->
+            <div class="relative reveal">
+                <div class="tl-dot tl-dot-green"></div>
+                <div class="glass p-5 sm:p-7 rounded-2xl card-hover border border-green-500/20 group" style="background:rgba(2,6,23,.75);box-shadow:0 0 0 1px rgba(74,222,128,.08)">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-1">
+                        <div>
+                            <p class="text-[9px] mono text-gray-500 uppercase tracking-widest mb-1">May 2026 – Present</p>
+                            <h3 class="syne text-base sm:text-xl font-bold uppercase tracking-wide text-white group-hover:text-green-400 transition-colors duration-300">Security Analyst</h3>
+                            <p class="text-green-400 text-xs sm:text-sm font-bold mono mt-0.5 flex items-center gap-1.5">
+                                <i class="fas fa-building text-[10px]"></i> Cyber Heals Private Limited
+                            </p>
+                            <p class="text-[9px] mono text-gray-600 mt-0.5">Trichy, Tamil Nadu</p>
+                        </div>
+                        <span class="self-start px-2.5 py-1.5 rounded-full bg-green-500/10 text-green-400 text-[9px] font-bold border border-green-500/25 mono uppercase tracking-wider whitespace-nowrap flex items-center gap-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span> Currently Active
+                        </span>
+                    </div>
+                    <div class="w-12 h-0.5 bg-gradient-to-r from-green-400 to-transparent mb-3 mt-2"></div>
+                    <p class="text-gray-400 text-xs sm:text-sm leading-loose">Conducting threat monitoring, log analysis, and incident triage. Contributing to proactive threat hunting and client security posture assessments across web and network attack surfaces. Performing end-to-end VAPT on web applications and documenting critical vulnerabilities following OWASP methodology.</p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="px-2 py-0.5 rounded-md bg-green-500/8 border border-green-500/20 text-green-400 text-[9px] mono uppercase tracking-wider">VAPT</span>
+                        <span class="px-2 py-0.5 rounded-md bg-green-500/8 border border-green-500/20 text-green-400 text-[9px] mono uppercase tracking-wider">Threat Hunting</span>
+                        <span class="px-2 py-0.5 rounded-md bg-green-500/8 border border-green-500/20 text-green-400 text-[9px] mono uppercase tracking-wider">Log Analysis</span>
+                        <span class="px-2 py-0.5 rounded-md bg-green-500/8 border border-green-500/20 text-green-400 text-[9px] mono uppercase tracking-wider">Incident Triage</span>
+                        <span class="px-2 py-0.5 rounded-md bg-green-500/8 border border-green-500/20 text-green-400 text-[9px] mono uppercase tracking-wider">OWASP Top 10</span>
+                        <span class="px-2 py-0.5 rounded-md bg-green-500/8 border border-green-500/20 text-green-400 text-[9px] mono uppercase tracking-wider">Burp Suite</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VaultOfCodes -->
+            <div class="relative reveal delay-1">
+                <div class="tl-dot tl-dot-blue"></div>
+                <div class="glass p-5 sm:p-7 rounded-2xl card-hover border border-white/5 group" style="background:rgba(2,6,23,.7)">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-1">
+                        <div>
+                            <p class="text-[9px] mono text-gray-500 uppercase tracking-widest mb-1">Jan 2025 – Feb 2025</p>
+                            <h3 class="syne text-base sm:text-xl font-bold uppercase tracking-wide text-white group-hover:text-cyber-blue transition-colors duration-300">Cybersecurity Intern</h3>
+                            <p class="text-cyber-blue text-xs sm:text-sm font-bold mono mt-0.5 flex items-center gap-1.5">
+                                <i class="fas fa-building text-[10px]"></i> VaultOfCodes
+                            </p>
+                        </div>
+                        <span class="self-start px-3 py-1.5 rounded-full bg-green-500/10 text-green-400 text-[9px] font-bold border border-green-500/25 uppercase tracking-wider mono whitespace-nowrap flex items-center gap-1.5">
+                            <i class="fas fa-trophy text-[8px]"></i> Best Intern — 1 / 62
+                        </span>
+                    </div>
+                    <div class="w-12 h-0.5 bg-gradient-to-r from-cyber-blue to-transparent mb-3 mt-2"></div>
+                    <p class="text-gray-400 text-xs sm:text-sm leading-loose">Recognised for exceptional performance in vulnerability research and reconnaissance operations. Ranked <span class="text-white font-semibold">1st out of 62 interns</span> across the cohort — demonstrating elite-level technical ability and initiative from day one.</p>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <span class="px-2 py-0.5 rounded-md bg-cyber-blue/8 border border-cyber-blue/20 text-cyber-blue text-[9px] mono uppercase tracking-wider">Recon</span>
+                        <span class="px-2 py-0.5 rounded-md bg-cyber-blue/8 border border-cyber-blue/20 text-cyber-blue text-[9px] mono uppercase tracking-wider">Vuln Research</span>
+                        <span class="px-2 py-0.5 rounded-md bg-cyber-blue/8 border border-cyber-blue/20 text-cyber-blue text-[9px] mono uppercase tracking-wider">Reporting</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section-py section-px relative z-10">
+    <div class="max-w-5xl mx-auto">
+        <div class="mb-8 reveal">
+            <div class="sec-label">// 04</div>
+            <h2 class="sec-title text-4xl sm:text-5xl">Project<span class="accent">_Artifacts</span></h2>
+            <div class="sec-bar"></div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-5">
+            <a href="https://github.com/Mubyyy404/USB-HID-Prevention-System-Placeholder" target="_blank" rel="noopener noreferrer" class="block group reveal">
+                <div class="glass p-5 sm:p-8 rounded-2xl card-hover border border-white/5 flex flex-col h-full">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-cyber-blue/10 flex items-center justify-center border border-cyber-blue/20">
+                            <i class="fas fa-shield-alt text-cyber-blue text-base sm:text-xl"></i>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] mono text-gray-600 uppercase tracking-widest">view on</span>
+                            <i class="fab fa-github text-gray-500 group-hover:text-white transition text-lg"></i>
+                        </div>
+                    </div>
+                    <h3 class="syne text-sm sm:text-xl font-bold mb-2 group-hover:text-cyber-blue transition uppercase tracking-wide">USB HID Attack Prevention System</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm leading-loose flex-grow">Detects and blocks malicious Rubber Ducky attacks using USB anomaly detection and whitelisting. Monitors unauthorized hardware connections and alerts via encrypted logs.</p>
+                    <div class="flex flex-wrap gap-1.5 mt-4">
+                        <span class="px-2 py-1 rounded-md bg-cyber-blue/10 text-cyber-blue text-[9px] font-bold border border-cyber-blue/20 mono uppercase">Python</span>
+                        <span class="px-2 py-1 rounded-md bg-cyber-blue/10 text-cyber-blue text-[9px] font-bold border border-cyber-blue/20 mono uppercase">Endpoint Security</span>
+                        <span class="px-2 py-1 rounded-md bg-cyber-blue/10 text-cyber-blue text-[9px] font-bold border border-cyber-blue/20 mono uppercase">USB Monitoring</span>
+                    </div>
+                </div>
+            </a>
+            <a href="https://github.com/Mubyyy404/Deception-Honeypot-Placeholder" target="_blank" rel="noopener noreferrer" class="block group reveal delay-1">
+                <div class="glass p-5 sm:p-8 rounded-2xl card-hover border border-white/5 flex flex-col h-full">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-cyber-blue/10 flex items-center justify-center border border-cyber-blue/20">
+                            <i class="fas fa-spider text-cyber-blue text-base sm:text-xl"></i>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] mono text-gray-600 uppercase tracking-widest">view on</span>
+                            <i class="fab fa-github text-gray-500 group-hover:text-white transition text-lg"></i>
+                        </div>
+                    </div>
+                    <h3 class="syne text-sm sm:text-xl font-bold mb-2 group-hover:text-cyber-blue transition uppercase tracking-wide">Deception-Based Honeypot</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm leading-loose flex-grow">Simulated fake SSH/FTP services to attract attackers and log intrusion attempts in real-time. Provides deep insight into attacker TTPs and reconnaissance techniques.</p>
+                    <div class="flex flex-wrap gap-1.5 mt-4">
+                        <span class="px-2 py-1 rounded-md bg-cyber-blue/10 text-cyber-blue text-[9px] font-bold border border-cyber-blue/20 mono uppercase">Honeypot</span>
+                        <span class="px-2 py-1 rounded-md bg-cyber-blue/10 text-cyber-blue text-[9px] font-bold border border-cyber-blue/20 mono uppercase">SSH/FTP</span>
+                        <span class="px-2 py-1 rounded-md bg-cyber-blue/10 text-cyber-blue text-[9px] font-bold border border-cyber-blue/20 mono uppercase">Threat Intel</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs" class="section-py section-px relative z-10 bg-slate-950/30">
+    <div class="max-w-5xl mx-auto">
+        <div class="mb-8 text-right reveal">
+            <div class="sec-label-r">// 05</div>
+            <h2 class="sec-title text-4xl sm:text-5xl">Cre<span class="accent">dentials</span></h2>
+            <div class="sec-bar-r"></div>
+        </div>
+        <div class="certs-grid grid lg:grid-cols-5 gap-6 items-start">
+            <div class="lg:col-span-3 glass p-5 sm:p-8 rounded-2xl border-t-4 border-cyber-blue reveal-left">
+                <h3 class="text-cyber-blue font-bold mb-4 uppercase text-[10px] tracking-widest mono italic">Validated Certifications</h3>
+                <ul class="space-y-0.5 text-gray-300">
+                    <!-- CEH V13 — gold highlighted -->
+                    <li class="ceh-cert-row p-2.5">
+                        <a href="#" class="flex items-center gap-3 text-xs sm:text-sm" style="text-decoration:none">
+                            <i class="fas fa-certificate ceh-cert-icon flex-shrink-0 text-xs"></i>
+                            <span class="ceh-badge-text" style="font-family:inherit;letter-spacing:.06em;text-transform:none;font-size:inherit">EC-Council — CEH V13 (Certified Ethical Hacker)</span>
+                        </a>
+                    </li>
+                    <li class="cred-item p-2.5"><a href="https://raw.githubusercontent.com/Mubyyy404/photo-2/refs/heads/main/photo%204.jpg" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>SecOps — Certified AppSec Practitioner (CAP)</a></li>
+                    <li class="cred-item p-2.5"><a href="https://training.fortinet.com/admin/tool/certificate/index.php?code=7765568602MM" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>Fortinet — Fundamentals of CyberSecurity</a></li>
+                    <li class="cred-item p-2.5"><a href="https://training.fortinet.com/mod/customcert/verify_certificate.php?contextid=251439&code=ifDnQMuCs4&qrcode=1" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>Fortinet — NSE 1 Network Security Associate</a></li>
+                    <li class="cred-item p-2.5"><a href="https://training.fortinet.com/admin/tool/certificate/index.php?code=0695498537MM" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>Fortinet — Fortigate 7.4 Operator (FCA)</a></li>
+                    <li class="cred-item p-2.5"><a href="https://media-hosting.imagekit.io/20f5ff28b4eb407d/1725276624570_page-0001.jpg" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>Palo Alto — CyberSecurity Fundamentals</a></li>
+                    <li class="cert-extra cred-item p-2.5"><a href="https://media.licdn.com/dms/image/v2/D5622AQF5MDTXCQXMmQ/feedshare-shrink_800/feedshare-shrink_800/0/1723775927774" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>Palo Alto — Network Security</a></li>
+                    <li class="cert-extra cred-item p-2.5"><a href="https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-MMB90QPAHZ.png" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>TryHackMe — Jr Penetration Tester</a></li>
+                    <li class="cert-extra cred-item p-2.5"><a href="https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-73TPELTJV8.png" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>TryHackMe — Pre Security</a></li>
+                    <li class="cert-extra cred-item p-2.5"><a href="https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-PQL8BRC9ZM.png" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>TryHackMe — Intro to CyberSecurity</a></li>
+                    <li class="cert-extra cred-item p-2.5"><a href="https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-3VVIYZBXN0.png" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>TryHackMe — Web Fundamentals</a></li>
+                    <li class="cert-extra cred-item p-2.5"><a href="https://codered.eccouncil.org/certificate/523f2709-af83-4926-962c-9ae7fd6d6690?logged=false" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>EC-Council — SQL Injection Attack</a></li>
+                    <li class="cert-extra cred-item p-2.5"><a href="https://codered.eccouncil.org/certificate/61835114-d420-49f9-9fca-1cff4cf96449?logged=false" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>EC-Council — Dark Web &amp; Cryptocurrency</a></li>
+                    <li class="cert-extra cred-item p-2.5"><a href="https://www.linkedin.com/posts/mohamed-mubeen-8028b3287_communication-skill-activity-7163935511143702528-Zo89" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>TCS iON — Communication Skills</a></li>
+                    <li class="cert-extra cred-item p-2.5"><a href="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/cert.jpeg" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 hover:text-cyber-blue transition text-xs sm:text-sm"><i class="fas fa-certificate text-cyber-blue flex-shrink-0 text-xs"></i>HackQuest2K25 — National Level CTF</a></li>
+                </ul>
+                <button id="toggle-certs-btn" class="mt-5 px-5 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest mono border border-cyber-blue text-cyber-blue hover:bg-cyber-blue hover:text-black transition-all duration-300 w-full">
+                    Show More (9 more) &#x2193;
+                </button>
+            </div>
+            <div class="lg:col-span-2 flex flex-col gap-3 reveal-right">
+                <p class="text-green-400 font-bold uppercase text-[10px] tracking-widest mono italic mb-1">Operational Honors</p>
+                <div class="glass p-4 sm:p-5 rounded-2xl border-l-4 border-yellow-400 flex items-start gap-3 honor-card">
+                    <i class="fas fa-trophy text-yellow-400 text-lg mt-0.5 flex-shrink-0"></i>
+                    <div><p class="text-white font-bold text-sm">PRO Chairman</p><p class="text-gray-400 text-xs mt-1 leading-relaxed">HackQuest2K25 — National Level CTF</p></div>
+                </div>
+                <div class="glass p-4 sm:p-5 rounded-2xl border-l-4 border-cyber-blue flex items-start gap-3 honor-card">
+                    <i class="fas fa-flag text-cyber-blue text-lg mt-0.5 flex-shrink-0"></i>
+                    <div><p class="text-white font-bold text-sm">7th Place</p><p class="text-gray-400 text-xs mt-1 leading-relaxed">HackQuest2K25 out of 556 teams</p></div>
+                </div>
+                <div class="glass p-4 sm:p-5 rounded-2xl border-l-4 border-green-400 flex items-start gap-3 honor-card">
+                    <i class="fas fa-star text-green-400 text-lg mt-0.5 flex-shrink-0"></i>
+                    <div><p class="text-white font-bold text-sm">Best Intern</p><p class="text-gray-400 text-xs mt-1 leading-relaxed">VaultOfCodes — Ranked 1 out of 62</p></div>
+                </div>
+                <div class="glass p-4 sm:p-5 rounded-2xl border-l-4 border-purple-400 flex items-start gap-3 honor-card">
+                    <i class="fas fa-rocket text-purple-400 text-lg mt-0.5 flex-shrink-0"></i>
+                    <div><p class="text-white font-bold text-sm">Stage Internship Offer</p><p class="text-gray-400 text-xs mt-1 leading-relaxed">Cyber Heals — by SP of Police, Trichy</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PHOTO SLIDER -->
+<section id="photos" class="py-12 sm:py-20 overflow-hidden bg-black/50 relative z-10">
+    <div class="section-px mb-6 max-w-5xl mx-auto flex items-end justify-between">
+        <div class="reveal">
+            <div class="sec-label">// 06</div>
+            <h2 class="sec-title text-3xl sm:text-5xl">Mission<span class="accent">_Logs</span></h2>
+            <div class="sec-bar"></div>
+        </div>
+        <p class="text-[9px] mono text-gray-600 uppercase tracking-widest italic hidden sm:block pb-1">tap to pause</p>
+    </div>
+    <div class="slider-wrapper">
+        <div class="slider-track" id="slider-track">
+            <div class="photo-card glass rounded-2xl overflow-hidden" onclick="openLightbox(0)">
+                <div class="photo-img-wrap"><img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/jmc.jpg" alt="JMC 2023" class="w-full h-40 object-cover" loading="lazy"/></div>
+                <div class="p-3"><p class="text-[9px] mono text-cyber-blue font-bold uppercase tracking-widest mb-1">LOG_01 — Campus</p><p class="text-gray-400 text-xs leading-relaxed">Started B.Sc IT with Cybersecurity at Jamal Mohamed College in 2023.</p></div>
+            </div>
+            <div class="photo-card glass rounded-2xl overflow-hidden" onclick="openLightbox(1)">
+                <div class="photo-img-wrap"><img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%202.jpg" alt="PRO Chairman" class="w-full h-40 object-cover" loading="lazy"/></div>
+                <div class="p-3"><p class="text-[9px] mono text-cyber-blue font-bold uppercase tracking-widest mb-1">LOG_02 — HackQuest</p><p class="text-gray-400 text-xs leading-relaxed">Served as PRO Chairman for HackQuest2K25, coordinating a national-level event.</p></div>
+            </div>
+            <div class="photo-card glass rounded-2xl overflow-hidden" onclick="openLightbox(2)">
+                <div class="photo-img-wrap"><img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/cert.jpeg" alt="CTF cert" class="w-full h-40 object-cover" loading="lazy"/></div>
+                <div class="p-3"><p class="text-[9px] mono text-cyber-blue font-bold uppercase tracking-widest mb-1">LOG_03 — CTF Award</p><p class="text-gray-400 text-xs leading-relaxed">7th place out of 556 teams at HackQuest2K25 — showcasing elite teamwork.</p></div>
+            </div>
+            <div class="photo-card glass rounded-2xl overflow-hidden" onclick="openLightbox(3)">
+                <div class="photo-img-wrap"><img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/Stage%20HackQuest2K25.jpeg" alt="Stage offer" class="w-full h-40 object-cover" loading="lazy"/></div>
+                <div class="p-3"><p class="text-[9px] mono text-cyber-blue font-bold uppercase tracking-widest mb-1">LOG_04 — Internship Offer</p><p class="text-gray-400 text-xs leading-relaxed">Internship offer from Cyber Heals presented on stage by SP of Police, Trichy.</p></div>
+            </div>
+            <div class="photo-card glass rounded-2xl overflow-hidden" onclick="openLightbox(4)">
+                <div class="photo-img-wrap"><img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%204.jpg" alt="CAP cert" class="w-full h-40 object-cover" loading="lazy"/></div>
+                <div class="p-3"><p class="text-[9px] mono text-cyber-blue font-bold uppercase tracking-widest mb-1">LOG_05 — CAP Certified</p><p class="text-gray-400 text-xs leading-relaxed">SecOps CAP Certified — validating skills in AppSec and security operations.</p></div>
+            </div>
+            <!-- Clones -->
+            <div class="photo-card glass rounded-2xl overflow-hidden" onclick="openLightbox(0)" aria-hidden="true">
+                <div class="photo-img-wrap"><img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/jmc.jpg" alt="" class="w-full h-40 object-cover" loading="lazy"/></div>
+                <div class="p-3"><p class="text-[9px] mono text-cyber-blue font-bold uppercase tracking-widest mb-1">LOG_01 — Campus</p><p class="text-gray-400 text-xs leading-relaxed">Started B.Sc IT with Cybersecurity at Jamal Mohamed College in 2023.</p></div>
+            </div>
+            <div class="photo-card glass rounded-2xl overflow-hidden" onclick="openLightbox(1)" aria-hidden="true">
+                <div class="photo-img-wrap"><img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%202.jpg" alt="" class="w-full h-40 object-cover" loading="lazy"/></div>
+                <div class="p-3"><p class="text-[9px] mono text-cyber-blue font-bold uppercase tracking-widest mb-1">LOG_02 — HackQuest</p><p class="text-gray-400 text-xs leading-relaxed">Served as PRO Chairman for HackQuest2K25, coordinating a national-level event.</p></div>
+            </div>
+            <div class="photo-card glass rounded-2xl overflow-hidden" onclick="openLightbox(2)" aria-hidden="true">
+                <div class="photo-img-wrap"><img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/cert.jpeg" alt="" class="w-full h-40 object-cover" loading="lazy"/></div>
+                <div class="p-3"><p class="text-[9px] mono text-cyber-blue font-bold uppercase tracking-widest mb-1">LOG_03 — CTF Award</p><p class="text-gray-400 text-xs leading-relaxed">7th place out of 556 teams at HackQuest2K25 — showcasing elite teamwork.</p></div>
+            </div>
+            <div class="photo-card glass rounded-2xl overflow-hidden" onclick="openLightbox(3)" aria-hidden="true">
+                <div class="photo-img-wrap"><img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/Stage%20HackQuest2K25.jpeg" alt="" class="w-full h-40 object-cover" loading="lazy"/></div>
+                <div class="p-3"><p class="text-[9px] mono text-cyber-blue font-bold uppercase tracking-widest mb-1">LOG_04 — Internship Offer</p><p class="text-gray-400 text-xs leading-relaxed">Internship offer from Cyber Heals presented on stage by SP of Police, Trichy.</p></div>
+            </div>
+            <div class="photo-card glass rounded-2xl overflow-hidden" onclick="openLightbox(4)" aria-hidden="true">
+                <div class="photo-img-wrap"><img src="https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%204.jpg" alt="" class="w-full h-40 object-cover" loading="lazy"/></div>
+                <div class="p-3"><p class="text-[9px] mono text-cyber-blue font-bold uppercase tracking-widest mb-1">LOG_05 — CAP Certified</p><p class="text-gray-400 text-xs leading-relaxed">SecOps CAP Certified — validating skills in AppSec and security operations.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section-py section-px relative z-10 border-t border-white/5">
+    <div class="max-w-5xl mx-auto">
+        <div class="mb-8 reveal">
+            <div class="sec-label">// 07</div>
+            <h2 class="sec-title text-4xl sm:text-5xl">Initialize<span class="accent">_Contact</span></h2>
+            <div class="sec-bar"></div>
+        </div>
+        <div class="contact-grid grid md:grid-cols-2 gap-7 items-start">
+            <div class="reveal-left">
+                <p class="text-gray-400 mb-6 leading-loose text-sm sm:text-base">Ready to collaborate on securing digital frontiers. Whether you're hiring or want to discuss cybersecurity — let's connect.</p>
+                <ul class="space-y-3">
+                    <li class="cred-item p-3 sm:p-4 glass rounded-xl">
+                        <a href="https://www.linkedin.com/in/mohamed-mubeen-8028b3287/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 transition group">
+                            <div class="w-9 h-9 rounded-xl bg-[#0a66c2]/15 flex items-center justify-center border border-[#0a66c2]/30 flex-shrink-0 group-hover:bg-[#0a66c2] transition-all duration-300">
+                                <i class="fab fa-linkedin-in text-[#0a66c2] group-hover:text-white transition text-sm"></i>
+                            </div>
+                            <div><p class="font-bold text-sm group-hover:text-[#0a66c2] transition">LinkedIn</p><p class="text-gray-500 text-xs mt-0.5">mohamed-mubeen-8028b3287</p></div>
+                        </a>
+                    </li>
+                    <li class="cred-item p-3 sm:p-4 glass rounded-xl">
+                        <a href="https://www.instagram.com/_mubee_4u/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 transition group">
+                            <div class="w-9 h-9 rounded-xl bg-pink-500/10 flex items-center justify-center border border-pink-500/25 flex-shrink-0 group-hover:bg-gradient-to-br group-hover:from-yellow-400 group-hover:via-pink-500 group-hover:to-purple-600 transition-all duration-300">
+                                <i class="fab fa-instagram text-pink-400 group-hover:text-white transition text-sm"></i>
+                            </div>
+                            <div><p class="font-bold text-sm group-hover:text-pink-400 transition">Instagram</p><p class="text-gray-500 text-xs mt-0.5">@_mubee_4u</p></div>
+                        </a>
+                    </li>
+                    <li class="cred-item p-3 sm:p-4 glass rounded-xl">
+                        <a href="mailto:mohamedmubeen1005@gmail.com" class="flex items-center gap-3 transition group">
+                            <div class="w-9 h-9 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/25 flex-shrink-0 group-hover:bg-[#EA4335] transition-all duration-300">
+                                <i class="fas fa-envelope text-red-400 group-hover:text-white transition text-sm"></i>
+                            </div>
+                            <div><p class="font-bold text-sm group-hover:text-red-400 transition">Email</p><p class="text-gray-500 text-xs mt-0.5 break-all">mohamedmubeen1005@gmail.com</p></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="glass p-5 sm:p-8 rounded-2xl border border-cyber-blue/10 reveal-right">
+                <p class="text-[10px] mono text-cyber-blue font-bold uppercase tracking-widest mb-4 italic">// Send a message</p>
+                <form action="https://formspree.io/f/mdkgykry" method="POST" class="space-y-3">
+                    <input type="text" name="name" placeholder="Your Name" required class="contact-input" autocomplete="name">
+                    <input type="email" name="email" placeholder="Your Email" required class="contact-input" autocomplete="email">
+                    <textarea name="message" placeholder="Your Message" required rows="5" class="contact-input resize-none"></textarea>
+                    <button type="submit" class="w-full py-3.5 bg-cyber-blue text-black font-extrabold rounded-xl hover:bg-white transition-all duration-300 uppercase text-xs tracking-widest cursor-pointer shadow-lg shadow-cyan-500/20 hover:shadow-white/20">
+                        Establish Link &#8594;
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-8 relative z-10 border-t border-white/5">
+    <div class="max-w-5xl mx-auto section-px">
+        <div class="footer-row flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="#" class="syne text-base sm:text-lg font-bold tracking-tighter text-cyber-blue hover:opacity-80 transition">&lt;Mubeen.Sec/&gt;</a>
+            <p class="text-gray-700 text-[9px] sm:text-[10px] mono uppercase tracking-[0.3em] text-center">
+                Unauthorized Access Prohibited // Mohamed Mubeen // <span id="current-year"></span>
+            </p>
+            <div class="flex gap-3">
+                <a href="https://github.com/Mubyyy404" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl glass flex items-center justify-center text-gray-500 hover:text-white hover:bg-[#24292e] hover:border-gray-600 border border-white/5 transition-all duration-300 text-sm"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/mohamed-mubeen-8028b3287/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl glass flex items-center justify-center text-[#0a66c2] hover:bg-[#0a66c2] hover:text-white hover:border-[#0a66c2] border border-white/5 transition-all duration-300 text-sm"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/_mubee_4u/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl glass flex items-center justify-center text-pink-400 hover:bg-gradient-to-br hover:from-yellow-400 hover:via-pink-500 hover:to-purple-600 hover:text-white border border-white/5 transition-all duration-300 text-sm"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+// ═══ CURSOR GLOW ═══
+const glow = document.getElementById('cursor-glow');
+if(glow){
+    let mx=window.innerWidth/2, my=window.innerHeight/2;
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY }, {passive:true});
+    function ag(){ glow.style.left=mx+'px'; glow.style.top=my+'px'; requestAnimationFrame(ag); }
+    ag();
+}
+
+// ═══ PARTICLES ═══
+if(window.innerWidth > 768){
+    const pf = document.getElementById('particles');
+    for(let i=0; i<18; i++){
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const x=Math.random()*100, dur=15+Math.random()*25, delay=-Math.random()*dur, drift=(Math.random()-.5)*120+'px';
+        p.style.cssText = `left:${x}%;animation-duration:${dur}s;animation-delay:${delay}s;--drift:${drift};opacity:${.3+Math.random()*.4}`;
+        pf.appendChild(p);
+    }
+}
+
+// ═══ CEH SPARKLES ═══
+(function(){
+    const container = document.getElementById('ceh-sparkles');
+    if(!container) return;
+    const configs = [
+        {sx:'-5px',sy:'8px',ex:'12px',ey:'-14px',dur:'2.2s',delay:'0s'},
+        {sx:'60px',sy:'5px',ex:'75px',ey:'-12px',dur:'2.8s',delay:'0.4s'},
+        {sx:'20px',sy:'12px',ex:'30px',ey:'-10px',dur:'2.5s',delay:'0.8s'},
+        {sx:'100px',sy:'8px',ex:'115px',ey:'-14px',dur:'2.1s',delay:'1.2s'},
+        {sx:'140px',sy:'5px',ex:'155px',ey:'-12px',dur:'3s',delay:'0.2s'},
+        {sx:'80px',sy:'10px',ex:'95px',ey:'-16px',dur:'2.4s',delay:'1.6s'},
+    ];
+    configs.forEach(c => {
+        const s = document.createElement('div');
+        s.className = 'ceh-sparkle';
+        s.style.cssText = `--sx:${c.sx};--sy:${c.sy};--ex:${c.ex};--ey:${c.ey};--dur:${c.dur};--delay:${c.delay};left:${c.sx};top:50%;`;
+        container.appendChild(s);
+    });
+})();
+
+// ═══ TYPEWRITER ═══
+const roles = ["Ethical Hacker","Web App Pentester","VAPT Specialist","CEH V13 Certified","Cybersecurity Enthusiast","PRO Chairman @ HackQuest"];
+let ri=0, rj=0, deleting=false;
+function type(){
+    const el = document.getElementById("typer"); if(!el) return;
+    const role = roles[ri];
+    if(deleting){ el.textContent=role.substring(0,rj-1); rj--; if(rj===0){ deleting=false; ri=(ri+1)%roles.length; } }
+    else{ el.textContent=role.substring(0,rj+1); rj++; if(rj===role.length){ deleting=true; setTimeout(type,2200); return; } }
+    setTimeout(type, deleting?42:110);
+}
+type();
+
+// ═══ INTERACTIVE KALI TERMINAL ═══
+const termOutput = document.getElementById('term-output');
+const termInput  = document.getElementById('term-input');
+
+// Authentic Kali prompt helper
+function kaliPrompt(cmd){
+    return `<span style="color:#68d391">┌──(</span><span style="color:#63b3ed;font-weight:700">mubyyy</span><span style="color:#fc8181">㉿</span><span style="color:#68d391;font-weight:700">kali</span><span style="color:#68d391">)-[</span><span style="color:#f8fafc">~</span><span style="color:#68d391">]</span><br><span style="color:#68d391">└─</span><span style="color:#63b3ed;font-weight:700">$ </span><span style="color:#f8fafc">${cmd}</span>`;
+}
+
+const termDB = {
+    whoami: () => [
+        {t:'out', txt:'<span class="term-white">mubyyy</span>'},
+    ],
+    id: () => [
+        {t:'out', txt:'<span class="term-white">uid=1000(<span class="term-cyan">mubyyy</span>) gid=1000(<span class="term-cyan">mubyyy</span>) groups=1000(mubyyy),24(cdrom),25(floppy),27(sudo),29(audio),30(dip),44(video),46(plugdev),108(netdev)</span>'},
+    ],
+    'uname -a': () => [
+        {t:'out', txt:'<span class="term-white">Linux kali 6.11.2-amd64 #1 SMP PREEMPT_DYNAMIC Kali GNU/Linux Rolling x86_64 GNU/Linux</span>'},
+    ],
+    'uname': () => [
+        {t:'out', txt:'<span class="term-white">Linux</span>'},
+    ],
+    hostname: () => [
+        {t:'out', txt:'<span class="term-green">kali</span>'},
+    ],
+    pwd: () => [
+        {t:'out', txt:'<span class="term-white">/home/mubyyy</span>'},
+    ],
+    ls: () => [
+        {t:'out', txt:'<span class="term-blue">certs/</span>  <span class="term-blue">experience/</span>  <span class="term-blue">projects/</span>  <span class="term-blue">skills/</span>  <span class="term-blue">tools/</span>'},
+        {t:'out', txt:'<span class="term-white">contact.txt</span>  <span class="term-white">status.md</span>  <span class="term-green">whoami</span>  <span class="term-green">init_portfolio.sh</span>'},
+    ],
+    'ls -la': () => [
+        {t:'out', txt:'<span class="term-dim">total 88</span>'},
+        {t:'out', txt:'<span class="term-white">drwxr-xr-x  8 mubyyy mubyyy 4096 May 26 2026 <span class="term-blue">.</span></span>'},
+        {t:'out', txt:'<span class="term-white">drwxr-xr-x 12 root   root   4096 May 26 2026 <span class="term-blue">..</span></span>'},
+        {t:'out', txt:'<span class="term-green">-rwxr-xr-x</span><span class="term-white">  1 mubyyy mubyyy 8192 May 26 2026 whoami</span>'},
+        {t:'out', txt:'<span class="term-green">-rwxr-xr-x</span><span class="term-white">  1 mubyyy mubyyy 4096 May 26 2026 init_portfolio.sh</span>'},
+        {t:'out', txt:'<span class="term-white">drwxr-xr-x  1 mubyyy mubyyy 4096 May 26 2026 <span class="term-blue">certs/</span></span>'},
+        {t:'out', txt:'<span class="term-white">drwxr-xr-x  1 mubyyy mubyyy 4096 May 26 2026 <span class="term-blue">tools/</span></span>'},
+    ],
+    nmap: () => [
+        {t:'out', txt:'<span class="term-green">Starting Nmap 7.94 ( https://nmap.org )</span>'},
+        {t:'out', txt:'<span class="term-white">Nmap scan report for <span class="term-cyan">mubeen-portfolio.sec</span></span>'},
+        {t:'out', txt:'<span class="term-white">Host is up (0.0000040s latency).</span>'},
+        {t:'out', txt:'<span class="term-white">Not shown: 997 closed tcp ports (reset)</span>'},
+        {t:'out', txt:'<span class="term-white">PORT    STATE SERVICE   VERSION</span>'},
+        {t:'out', txt:'<span class="term-green">80/tcp  open  http       nginx (Cybersec Portfolio v1.0)</span>'},
+        {t:'out', txt:'<span class="term-green">443/tcp open  https      TLS 1.3 (Secured)</span>'},
+        {t:'out', txt:'<span class="term-yellow">8080/tcp open rpc-pentester Web App Tester Active</span>'},
+        {t:'out', txt:'<span class="term-white">Nmap done: 1 IP address (1 host up) scanned in 0.42s</span>'},
+    ],
+    'nmap -sV': () => [
+        {t:'out', txt:'<span class="term-green">Starting Nmap 7.94 — Version Detection</span>'},
+        {t:'out', txt:'<span class="term-white">PORT     STATE  SERVICE   VERSION</span>'},
+        {t:'out', txt:'<span class="term-green">22/tcp   open   ssh       OpenSSH 9.2p1 Debian</span>'},
+        {t:'out', txt:'<span class="term-green">80/tcp   open   http      Apache httpd 2.4.57</span>'},
+        {t:'out', txt:'<span class="term-green">443/tcp  open   ssl/https nginx 1.24.0</span>'},
+        {t:'out', txt:'<span class="term-yellow">3306/tcp open   mysql     MySQL 8.0.34</span>'},
+    ],
+    hydra: () => [
+        {t:'out', txt:'<span class="term-cyan">Hydra v9.5 (c) 2023 by van Hauser/THC</span>'},
+        {t:'out', txt:'<span class="term-white">[INFO] Attacking target: <span class="term-yellow">lab.target.local</span></span>'},
+        {t:'out', txt:'<span class="term-white">[DATA] max 16 tasks per 1 server, 16 tasks total</span>'},
+        {t:'out', txt:'<span class="term-green">[22][ssh] host: lab.target.local   login: admin   password: Tr0ub4dor</span>'},
+        {t:'out', txt:'<span class="term-yellow">1 of 1 target successfully completed, 1 valid password found</span>'},
+        {t:'out', txt:'<span class="term-dim">(This is a controlled lab environment)</span>'},
+    ],
+    sqlmap: () => [
+        {t:'out', txt:'<span class="term-cyan">        ___</span>'},
+        {t:'out', txt:`<span class="term-cyan">       __H__</span>`},
+        {t:'out', txt:`<span class="term-cyan"> ___ ___["]_____ ___ ___  {1.7.11#stable}</span>`},
+        {t:'out', txt:`<span class="term-cyan">|_ -| . [,]     | .'| . |</span>`},
+        {t:'out', txt:`<span class="term-cyan">|___|_  [)]_|_|_|__,|  _|</span>`},
+        {t:'out', txt:`<span class="term-cyan">      |_|V...       |_|</span>`},
+        {t:'out', txt:'<span class="term-white">[*] Starting @ 2026-05-26 00:00:01</span>'},
+        {t:'out', txt:'<span class="term-green">[INFO] testing connection to the target URL</span>'},
+        {t:'out', txt:'<span class="term-yellow">[WARN] heuristic (basic) test shows that GET parameter \'id\' might be injectable</span>'},
+        {t:'out', txt:'<span class="term-green">[INFO] confirming SQLi — parameter \'id\' is vulnerable (MySQL)</span>'},
+    ],
+    msfconsole: () => [
+        {t:'out', txt:'<span class="term-white">                                                  </span>'},
+        {t:'out', txt:'<span class="term-red">  .;lxO0KXNWWMMMMMMWWNXK0Oxl:.</span>'},
+        {t:'out', txt:'<span class="term-red"> ,kNMMMMMMMMMMMMMMMMMMMMMMMMMWXk,</span>'},
+        {t:'out', txt:'<span class="term-white">       =[ metasploit v6.3.44-dev                  ]</span>'},
+        {t:'out', txt:'<span class="term-white">+ -- --=[ 2363 exploits - 1232 auxiliary - 413 post ]</span>'},
+        {t:'out', txt:'<span class="term-white">+ -- --=[ 1391 payloads - 46 encoders - 11 nops      ]</span>'},
+        {t:'out', txt:'<span class="term-yellow">msf6 &gt; <span class="term-dim">(type exit to leave)</span></span>'},
+    ],
+    netstat: () => [
+        {t:'out', txt:'<span class="term-white">Active Internet connections (servers and established)</span>'},
+        {t:'out', txt:'<span class="term-white">Proto Recv-Q Send-Q Local Address      Foreign Address    State</span>'},
+        {t:'out', txt:'<span class="term-green">tcp        0      0  0.0.0.0:22         0.0.0.0:*          LISTEN</span>'},
+        {t:'out', txt:'<span class="term-green">tcp        0      0  0.0.0.0:80         0.0.0.0:*          LISTEN</span>'},
+        {t:'out', txt:'<span class="term-green">tcp        0      0  0.0.0.0:443        0.0.0.0:*          LISTEN</span>'},
+        {t:'out', txt:'<span class="term-cyan">tcp        0      0  127.0.0.1:8080     127.0.0.1:54321    ESTABLISHED</span>'},
+    ],
+    ifconfig: () => [
+        {t:'out', txt:'<span class="term-white">eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span>'},
+        {t:'out', txt:'<span class="term-white">      inet <span class="term-cyan">192.168.1.100</span>  netmask 255.255.255.0  broadcast 192.168.1.255</span>'},
+        {t:'out', txt:'<span class="term-white">      inet6 fe80::a00:27ff:fe4e:66a1  prefixlen 64  scopeid 0x20&lt;link&gt;</span>'},
+        {t:'out', txt:'<span class="term-white">lo:   flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span>'},
+        {t:'out', txt:'<span class="term-white">      inet <span class="term-cyan">127.0.0.1</span>  netmask 255.0.0.0</span>'},
+    ],
+    'cat /etc/passwd': () => [
+        {t:'out', txt:'<span class="term-white">root:x:0:0:root:/root:/bin/bash</span>'},
+        {t:'out', txt:'<span class="term-dim">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span>'},
+        {t:'out', txt:'<span class="term-cyan">mubyyy:x:1000:1000:Mohamed Mubeen,,,:/home/mubyyy:/bin/bash</span>'},
+    ],
+    'cat status.md': () => [
+        {t:'out', txt:'<span class="term-cyan"># Mohamed Mubeen — Operator Profile</span>'},
+        {t:'out', txt:'<span class="term-yellow">role:</span>       <span class="term-white">Security Analyst @ Cyber Heals Pvt Ltd</span>'},
+        {t:'out', txt:'<span class="term-yellow">certs:</span>      <span class="term-white">15+ (incl. EC-Council CEH V13)</span>'},
+        {t:'out', txt:'<span class="term-yellow">ctf_rank:</span>  <span class="term-green">7th / 556 teams — HackQuest2K25</span>'},
+        {t:'out', txt:'<span class="term-yellow">best_intern:</span><span class="term-green"> 1st / 62 — VaultOfCodes</span>'},
+        {t:'out', txt:'<span class="term-yellow">available:</span>  <span class="term-green">true ✓</span>'},
+    ],
+    skills: () => [
+        {t:'out', txt:'<span class="term-cyan">┌─ [OFFENSIVE TOOLS]</span>'},
+        {t:'out', txt:'<span class="term-white">│  Burp Suite · Metasploit · Nmap · SQLMap · Wireshark</span>'},
+        {t:'out', txt:'<span class="term-cyan">├─ [DOMAINS]</span>'},
+        {t:'out', txt:'<span class="term-white">│  Web Pentesting · VAPT · Network Security · Active Directory</span>'},
+        {t:'out', txt:'<span class="term-cyan">├─ [SCRIPTING]</span>'},
+        {t:'out', txt:'<span class="term-white">│  Python · Bash · PowerShell</span>'},
+        {t:'out', txt:'<span class="term-cyan">└─ [PLATFORMS]</span>'},
+        {t:'out', txt:'<span class="term-white">   Kali Linux · TryHackMe · Hack The Box · Burp Suite Pro</span>'},
+    ],
+    certs: () => [
+        {t:'out', txt:'<span class="term-yellow">★ EC-Council CEH V13 (Certified Ethical Hacker)</span>'},
+        {t:'out', txt:'<span class="term-white">  SecOps CAP · Fortinet NSE1 · FCA 7.4</span>'},
+        {t:'out', txt:'<span class="term-white">  Palo Alto Fundamentals · Palo Alto Network Security</span>'},
+        {t:'out', txt:'<span class="term-white">  TryHackMe: Jr Pentester · Pre Security · Web Fundamentals</span>'},
+        {t:'out', txt:'<span class="term-white">  EC-Council: SQL Injection · Dark Web &amp; Crypto</span>'},
+        {t:'out', txt:'<span class="term-dim">  + 4 more certifications</span>'},
+    ],
+    contact: () => [
+        {t:'out', txt:'<span class="term-cyan">linkedin:</span>  <span class="term-white">linkedin.com/in/mohamed-mubeen-8028b3287</span>'},
+        {t:'out', txt:'<span class="term-cyan">email:</span>     <span class="term-white">mohamedmubeen1005@gmail.com</span>'},
+        {t:'out', txt:'<span class="term-cyan">github:</span>    <span class="term-white">github.com/Mubyyy404</span>'},
+        {t:'out', txt:'<span class="term-cyan">insta:</span>     <span class="term-white">@_mubee_4u</span>'},
+    ],
+    help: () => [
+        {t:'out', txt:'<span class="term-cyan">┌─────────────────── AVAILABLE COMMANDS ───────────────────┐</span>'},
+        {t:'out', txt:'<span class="term-white">│ <span class="term-green">whoami</span> · <span class="term-green">id</span> · <span class="term-green">hostname</span> · <span class="term-green">pwd</span> · <span class="term-green">ls</span> · <span class="term-green">ls -la</span>           │</span>'},
+        {t:'out', txt:'<span class="term-white">│ <span class="term-yellow">nmap</span> · <span class="term-yellow">nmap -sV</span> · <span class="term-yellow">sqlmap</span> · <span class="term-yellow">hydra</span> · <span class="term-yellow">msfconsole</span>       │</span>'},
+        {t:'out', txt:'<span class="term-white">│ <span class="term-cyan">netstat</span> · <span class="term-cyan">ifconfig</span> · <span class="term-cyan">uname -a</span> · <span class="term-cyan">cat /etc/passwd</span>   │</span>'},
+        {t:'out', txt:'<span class="term-white">│ <span class="term-blue">skills</span> · <span class="term-blue">certs</span> · <span class="term-blue">contact</span> · <span class="term-blue">cat status.md</span>            │</span>'},
+        {t:'out', txt:'<span class="term-white">│ <span class="term-red">clear</span> · <span class="term-red">help</span>                                            │</span>'},
+        {t:'out', txt:'<span class="term-cyan">└──────────────────────────────────────────────────────────┘</span>'},
+    ],
+    status: () => [
+        {t:'out', txt:'<span class="term-yellow">role:</span>       <span class="term-white">Security Analyst @ Cyber Heals Pvt Ltd</span>'},
+        {t:'out', txt:'<span class="term-yellow">certs:</span>      <span class="term-green">15+ Earned (incl. CEH V13)</span>'},
+        {t:'out', txt:'<span class="term-yellow">ctf:</span>        <span class="term-white">7th / 556 teams — HackQuest2K25</span>'},
+        {t:'out', txt:'<span class="term-yellow">available:</span>  <span class="term-green">true ✓</span>'},
+    ],
+    experience: () => [
+        {t:'out', txt:'<span class="term-green">● Active</span>  <span class="term-white">Security Analyst — Cyber Heals Pvt Ltd (May 2026–)</span>'},
+        {t:'out', txt:'<span class="term-cyan">● Past</span>    <span class="term-white">Cybersecurity Intern — VaultOfCodes (Jan–Feb 2025)</span>'},
+        {t:'out', txt:'<span class="term-yellow">  Award:</span>   <span class="term-white">Best Intern — 1st out of 62 interns</span>'},
+    ],
+    clear: () => 'CLEAR',
+    date: () => [{t:'out', txt:`<span class="term-white">${new Date().toString()}</span>`}],
+};
+
+function addLine(html, cls=''){
+    const d = document.createElement('div');
+    d.innerHTML = html;
+    if(cls) d.className = cls;
+    termOutput.appendChild(d);
+    termOutput.scrollTop = termOutput.scrollHeight;
+}
+
+function runCommand(cmd){
+    const rawCmd = cmd.trim();
+    if(!rawCmd) return;
+    const lc = rawCmd.toLowerCase();
+    addLine(kaliPrompt(rawCmd));
+    const fn = termDB[lc] || termDB[rawCmd];
+    if(fn){
+        const res = fn();
+        if(res === 'CLEAR'){
+            termOutput.innerHTML = '';
+            return;
+        }
+        res.forEach((r, i) => {
+            setTimeout(() => {
+                addLine(`<span class="term-out">${r.txt}</span>`);
+            }, i * 45);
+        });
+    } else {
+        addLine(`<span class="term-out term-red">bash: <span class="term-white">${rawCmd}</span>: command not found. Try <span class="term-cyan">help</span></span>`);
+    }
+}
+
+// Boot sequence — authentic Kali boot
+const bootLines = [
+    {delay:0,    html:`<span class="term-dim">┌──────────────────────────────────────────────────────┐</span>`},
+    {delay:100,  html:`<span class="term-dim">│         Kali GNU/Linux Rolling — bash 5.2.15         │</span>`},
+    {delay:200,  html:`<span class="term-dim">└──────────────────────────────────────────────────────┘</span>`},
+    {delay:450,  html:`<span style="color:#68d391">┌──(</span><span style="color:#63b3ed;font-weight:700">mubyyy</span><span style="color:#fc8181">㉿</span><span style="color:#68d391;font-weight:700">kali</span><span style="color:#68d391">)-[</span><span style="color:#f8fafc">~</span><span style="color:#68d391">]</span><br><span style="color:#68d391">└─</span><span style="color:#63b3ed;font-weight:700">$ </span><span style="color:#f8fafc">./init_portfolio.sh</span>`},
+    {delay:800,  html:`<span class="term-out term-green">[  OK  ] Loading identity module............</span>`},
+    {delay:1050, html:`<span class="term-out term-green">[  OK  ] CEH V13 license verified..........</span>`},
+    {delay:1280, html:`<span class="term-out term-green">[  OK  ] Security stack initialized.........</span>`},
+    {delay:1500, html:`<span class="term-out term-yellow">[ INFO ] Type <span class="term-cyan">help</span> to list commands ↓</span>`},
+];
+bootLines.forEach(l => setTimeout(() => addLine(l.html), l.delay));
+
+termInput.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){
+        runCommand(termInput.value);
+        termInput.value = '';
+    }
+});
+
+// Suggest on click/focus
+termInput.addEventListener('focus', () => {
+    if(!termInput.value && termOutput.children.length <= bootLines.length + 1){
+        setTimeout(() => runCommand('whoami'), 200);
+    }
+});
+
+// ═══ NAV ═══
+const mainNav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+    mainNav.classList.toggle('scrolled', window.scrollY > 60);
+}, {passive:true});
+
+// ═══ MOBILE MENU ═══
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const mobileMenu   = document.getElementById('mobile-menu');
+hamburgerBtn.addEventListener('click', () => {
+    hamburgerBtn.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+});
+function closeMobileMenu(){
+    hamburgerBtn.classList.remove('active');
+    mobileMenu.classList.remove('active');
+}
+
+// ═══ MODALS ═══
+function openModal(id){ document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+document.querySelectorAll('.modal').forEach(m => {
+    m.addEventListener('click', e => { if(e.target===m) closeModal(m.id); });
+});
+document.addEventListener('keydown', e => {
+    if(e.key==='Escape'){
+        document.querySelectorAll('.modal.open').forEach(m => closeModal(m.id));
+        closeLightbox();
+    }
+});
+
+// ═══ CERT TOGGLE ═══
+const certExtras = document.querySelectorAll('.cert-extra');
+const toggleBtn  = document.getElementById('toggle-certs-btn');
+let certsVisible = false;
+toggleBtn.addEventListener('click', () => {
+    certsVisible = !certsVisible;
+    certExtras.forEach((c, i) => {
+        setTimeout(() => {
+            if(certsVisible) c.classList.add('show');
+            else c.classList.remove('show');
+        }, certsVisible ? i*40 : 0);
+    });
+    toggleBtn.textContent = certsVisible ? 'Show Less ↑' : 'Show More (9 more) ↓';
+});
+
+// ═══ SCROLL REVEAL ═══
+const revealEls = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+const revealIO  = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if(e.isIntersecting){ e.target.classList.add('visible'); revealIO.unobserve(e.target); }
+    });
+}, {threshold:0.06, rootMargin:'0px 0px -30px 0px'});
+revealEls.forEach(el => revealIO.observe(el));
+
+// ═══ NEON BTN RIPPLE ═══
+document.querySelectorAll('.neon-btn').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        btn.style.setProperty('--x', ((e.clientX-r.left)/r.width*100)+'%');
+        btn.style.setProperty('--y', ((e.clientY-r.top)/r.height*100)+'%');
+    });
+});
+
+// ═══ ACTIVE NAV ═══
+const sections  = document.querySelectorAll('section[id]');
+const navLinks  = document.querySelectorAll('.desktop-nav a[href^="#"]');
+window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => { if(window.scrollY >= s.offsetTop - 120) current = s.id; });
+    navLinks.forEach(l => {
+        l.classList.remove('active-link');
+        if(l.getAttribute('href') === '#'+current) l.classList.add('active-link');
+    });
+}, {passive:true});
+
+// ═══ SLIDER TOUCH ═══
+const sliderTrack = document.getElementById('slider-track');
+if(sliderTrack){
+    sliderTrack.addEventListener('touchstart', () => { sliderTrack.style.animationPlayState='paused'; }, {passive:true});
+    sliderTrack.addEventListener('touchend',   () => { sliderTrack.style.animationPlayState='running'; }, {passive:true});
+}
+
+// ═══ LIGHTBOX ═══
+const lbPhotos = [
+    {src:'https://raw.githubusercontent.com/Mubyyy404/photo-2/main/jmc.jpg',title:'LOG_01 — Campus',desc:'Started B.Sc IT with Cybersecurity at Jamal Mohamed College in 2023.'},
+    {src:'https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%202.jpg',title:'LOG_02 — HackQuest',desc:'Served as PRO Chairman for HackQuest2K25, coordinating a national-level event.'},
+    {src:'https://raw.githubusercontent.com/Mubyyy404/photo-2/main/cert.jpeg',title:'LOG_03 — CTF Award',desc:'7th place out of 556 teams at HackQuest2K25 — showcasing elite teamwork.'},
+    {src:'https://raw.githubusercontent.com/Mubyyy404/photo-2/main/Stage%20HackQuest2K25.jpeg',title:'LOG_04 — Internship Offer',desc:'Internship offer from Cyber Heals presented on stage by SP of Police, Trichy.'},
+    {src:'https://raw.githubusercontent.com/Mubyyy404/photo-2/main/photo%204.jpg',title:'LOG_05 — CAP Certified',desc:'SecOps CAP Certified — validating skills in AppSec and security operations.'},
+];
+let lbIdx = 0;
+function openLightbox(idx){ lbIdx=idx; renderLightbox(); document.getElementById('photo-lightbox').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLightbox(){ document.getElementById('photo-lightbox').classList.remove('open'); document.body.style.overflow=''; }
+function renderLightbox(){
+    const p=lbPhotos[lbIdx];
+    document.getElementById('lb-img').src=p.src;
+    document.getElementById('lb-title').textContent=p.title;
+    document.getElementById('lb-desc').textContent=p.desc;
+    document.getElementById('lb-counter').textContent=(lbIdx+1)+' / '+lbPhotos.length;
+}
+function lbNav(dir){ lbIdx=(lbIdx+dir+lbPhotos.length)%lbPhotos.length; renderLightbox(); }
+document.getElementById('photo-lightbox').addEventListener('click', e => { if(e.target===document.getElementById('photo-lightbox')) closeLightbox(); });
+
+// ═══ FOOTER YEAR ═══
+document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
